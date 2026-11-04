@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/brand/logo-zappy.png";
+import { site, whatsappHref } from "../config/site";
+import { services } from "../data/services";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo">
+        <Image
+          src={logo}
+          alt="Logotipo de Zappy Delivery"
+          width={220}
+          height={128}
+          densities={[1, 2]}
+        />
+      </a>
+      <p>
+        {site.legalName}. Courier y última milla para empresas en {site.city}.
+      </p>
+      <p class="muted">
+        <a href={whatsappHref()}>{site.whatsappDisplay}</a><br />
+        <a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a>
+      </p>
+    </div>
+    <div>
+      <h2>Servicios</h2>
+      <ul>
+        {
+          services.map((service) => (
+            <li>
+              <a href={`/servicios/${service.slug}`}>{service.menuLabel}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h2>Empresa</h2>
+      <ul>
+        <li><a href="/empresas">Por qué Zappy</a></li>
+        <li><a href="/cobertura">Cobertura</a></li>
+        <li><a href="/zappypoints">ZappyPoints</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/preguntas-frecuentes">Preguntas frecuentes</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Redes</h2>
+      <ul>
+        <li><a href={site.social.instagram}>Instagram</a></li>
+        <li><a href={site.social.facebook}>Facebook</a></li>
+        <li><a href={site.social.linkedin}>LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal-row">
+    <span>© {year} {site.name}. {site.city}.</span>
+    <a href="/aviso-de-privacidad">Aviso de privacidad</a>
+    <a href="/terminos-y-condiciones">Términos y condiciones</a>
+  </div>
+</footer>

@@ -1,0 +1,283 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import FaqList from "../components/FaqList.astro";
+import { site, whatsappHref } from "../config/site";
+import { services } from "../data/services";
+import { homeFaqs } from "../data/faq";
+import { cityZones } from "../data/coverage";
+import { organizationNode, graph } from "../lib/schema";
+import photo from "../assets/gallery/entregas-exitosas.jpg";
+import logoHechizo from "../assets/gallery/cliente-hechizo-de-luna.jpg";
+import logoDecofruta from "../assets/gallery/cliente-decofruta.jpg";
+import logoArima from "../assets/gallery/cliente-arima.jpg";
+import logoPerri from "../assets/gallery/cliente-perriropita.jpg";
+
+const title = "Mensajería en moto Panamá para empresas | Zappy Delivery";
+const description =
+  "Mensajería en moto en Panamá para empresas: tarjetas, tiendas y documentos. Si no cabe en moto, panel o camión al interior. WhatsApp.";
+
+const fills = ["navy", "sky", "white", "sky", "white", "navy"] as const;
+
+const logos = [
+  { src: logoHechizo, alt: "Logotipo de Hechizo de Luna Pijamas, en la galería de entregas de Zappy" },
+  { src: logoDecofruta, alt: "Logotipo de Decofruta Ramos Frutales, en la galería de entregas de Zappy" },
+  { src: logoArima, alt: "Logotipo de Arima, en la galería de entregas de Zappy" },
+  { src: logoPerri, alt: "Logotipo de Perriropita Pet Store, en la galería de entregas de Zappy" },
+];
+
+const jsonLd = graph(organizationNode(), {
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  url: site.url,
+  name: site.name,
+  inLanguage: site.locale,
+  publisher: { "@id": `${site.url}/#organization` },
+});
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-navy hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Courier B2B · {site.city}</p>
+        <h1 class="display">Mensajería en moto para empresas en Panamá.</h1>
+        <p class="lede">
+          La flota urbana es de mensajeros en moto: tarjetas bancarias, tiendas y
+          documentos. Si la carga no cabe, hay panel o camión hasta David y el interior.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-cta" href={whatsappHref()}>Escribir por WhatsApp</a>
+          <a class="btn btn-white" href="/servicios">Ver servicios</a>
+        </div>
+        <ul class="tag-row">
+          <li>Mensajería en moto</li>
+          <li>Despacho inmediato</li>
+          <li>Evidencia de entrega</li>
+          <li>Trazabilidad</li>
+          <li>Notificaciones</li>
+          <li>Ahorro por volumen</li>
+        </ul>
+      </div>
+      <div class="hero-cluster" aria-hidden="true">
+        <div class="mock">
+          <div class="mock-top">
+            <div>
+              <p class="mock-kicker">Ejemplo de tablero</p>
+              <h2>En ruta</h2>
+            </div>
+            <span class="tag">Demo</span>
+          </div>
+          <p style="margin-top: 8px;">Guía de muestra · Ciudad de Panamá</p>
+          <ol class="steps">
+            <li class="done"><span class="dot"></span> Recolectado</li>
+            <li class="done"><span class="dot"></span> En ruta</li>
+            <li><span class="dot"></span> Evidencia fotográfica</li>
+          </ol>
+          <div class="track"><span></span></div>
+        </div>
+        <div class="mini-stats">
+          <article class="mini mini-orange">
+            <p class="stat">97,91%</p>
+            <p>de las tarjetas, en menos de 96 horas</p>
+          </article>
+          <article class="mini mini-sky">
+            <p class="stat">9/10</p>
+            <p>califican bueno o muy bueno</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-linen section" aria-labelledby="prueba">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="prueba">Cifras publicadas de la entrega de tarjetas.</h2>
+        <p class="lede">
+          Estos números están en la página de tarjetas bancarias de Zappy. No los
+          presentamos como promesa del resto de servicios.
+        </p>
+      </div>
+      <div class="proof">
+        <article class="stat-card">
+          <p class="stat">97,91%</p>
+          <p>de las entregas de tarjetas se hace en menos de 96 horas.</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat">9/10</p>
+          <p>clientes lo califican bueno o muy bueno, en encuestas semanales.</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat">Foto</p>
+          <p>Evidencia de recolecta y entrega en el servicio a comercios.</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat">Tablero</p>
+          <p>El usuario monitorea la operación desde un dashboard.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-white section" aria-labelledby="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="servicios">Servicios de mensajería y última milla.</h2>
+        <p>
+          El servicio de mensajería en Panamá se parte por la carga. En la ciudad
+          es mensajería en moto. Si el bulto no entra, o la ruta va al interior,
+          entra el panel o el camión.
+        </p>
+      </div>
+      <div class="bento">
+        {
+          services.map((service, index) => (
+            <a
+              class:list={[
+                "card",
+                `card-${fills[index]}`,
+                index === 0 && "tall card-lg",
+                index === 5 && "span-2",
+              ]}
+              href={`/servicios/${service.slug}`}
+            >
+              <span class="kicker">0{index + 1}</span>
+              <h3>{service.name}</h3>
+              <p>{service.summary}</p>
+              <span class="more">Ver el servicio</span>
+            </a>
+          ))
+        }
+        <a class="card card-orange card-lg" href={whatsappHref()}>
+          <span class="kicker">Contacto</span>
+          <h3>Cuéntenos la ruta.</h3>
+          <p>WhatsApp al {site.whatsappDisplay}. Sin descarga de app.</p>
+          <span class="more">Abrir WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-sky section">
+    <div class="wrap split">
+      <div>
+        <h2 class="h2">Un tablero para ver la operación.</h2>
+        <p class="lede" style="margin-top: 16px;">
+          Zappy describe un sistema de operaciones para planificar y controlar la
+          última milla. Quien usa el servicio tiene un tablero y puede seguir el
+          proceso, con avisos cuando hay un caso especial.
+        </p>
+        <ul class="feature-list" style="margin-top: 20px;">
+          <li>
+            <strong>Instrucciones especiales</strong>
+            <span>El sitio las lista entre las capacidades de la operación.</span>
+          </li>
+          <li>
+            <strong>Producto asegurado</strong>
+            <span>La póliza publicada cubre daños hasta 100 dólares, salvo un seguro de carga mayor.</span>
+          </li>
+          <li>
+            <strong>Flexibilidad</strong>
+            <span>Se adaptan a la necesidad del negocio. El detalle se acuerda por WhatsApp.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="frame">
+        <Image
+          src={photo}
+          alt="Operación de Zappy Delivery: camión con cajas, productos frescos, paquetes etiquetados en un carro y carga paletizada"
+          widths={[640, 960, 1400]}
+          sizes="(min-width: 900px) 560px, 100vw"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-linen section" aria-labelledby="aliado">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="aliado">Entregas exitosas.</h2>
+        <p>
+          El sitio actual dice que sus clientes cuentan con un buen aliado para
+          el negocio y muestra estas marcas en la galería. No publica testimonios
+          ni cifras de esos comercios.
+        </p>
+      </div>
+      <div class="logo-grid">
+        {
+          logos.map((item) => (
+            <figure>
+              <Image src={item.src} alt={item.alt} width={220} height={180} loading="eager" />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-navy section" aria-labelledby="cobertura">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="cobertura">Cobertura en la ciudad y envíos al interior.</h2>
+        <p class="lede">
+          La mensajería en moto cubre la Ciudad de Panamá y sus afueras. El
+          interior va por traslados en panel o camión.
+        </p>
+      </div>
+      <div class="zone-grid">
+        {
+          cityZones.map((zone) => (
+            <article class="card card-white">
+              <h3>{zone.name}</h3>
+              <p>{zone.body}</p>
+            </article>
+          ))
+        }
+      </div>
+      <article class="card card-orange card-lg" style="margin-top: 16px;">
+        <h3>Rutas nombradas hacia el interior</h3>
+        <p>
+          Chitré, Las Tablas, Santiago, David, Aguadulce y Penonomé. Envíos
+          nacionales Panamá–David y al resto de esas ciudades, en el servicio de
+          panel o camión.
+        </p>
+        <a class="btn btn-white" href="/cobertura" style="margin-top: 8px; align-self: flex-start;">
+          Ver cobertura
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="band band-linen section" aria-labelledby="faq">
+    <div class="wrap split">
+      <div>
+        <h2 class="h2" id="faq">Preguntas frecuentes.</h2>
+        <p class="lede" style="margin-top: 12px;">
+          Respuestas cortas con lo que la empresa ya publicó. El resto está en
+          la página de preguntas.
+        </p>
+        <a class="btn btn-ghost" href="/preguntas-frecuentes" style="margin-top: 18px;">
+          Ver todas
+        </a>
+      </div>
+      <FaqList items={homeFaqs} />
+    </div>
+  </section>
+
+  <section class="band band-sky section">
+    <div class="wrap" style="display: grid; gap: 18px;">
+      <h2 class="h2">¿Listo para mover la carga?</h2>
+      <p class="lede">
+        Escriba por WhatsApp qué despacha, desde dónde y hacia qué zona. Le
+        responden con la operación que corresponde: tarjetas, mensajería,
+        comercio o camión.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-cta" href={whatsappHref()}>WhatsApp {site.whatsappDisplay}</a>
+        <a class="btn btn-white" href="/contacto">Página de contacto</a>
+      </div>
+    </div>
+  </section>
+</Base>

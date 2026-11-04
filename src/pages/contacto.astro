@@ -1,0 +1,107 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site, whatsappHref } from "../config/site";
+import { services } from "../data/services";
+import { organizationNode, breadcrumbNode, graph } from "../lib/schema";
+
+const title = "Contactar a Zappy Delivery por WhatsApp | Panamá";
+const description =
+  "Hable con Zappy Delivery por WhatsApp al +507 6600-9480. Mensajería y última milla para empresas en Ciudad de Panamá.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Contacto" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Contacto", path: "/contacto" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-navy page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">Contacto</p>
+      <h1 class="h1">Escríbanos. El canal es WhatsApp.</h1>
+      <p class="lede">
+        Cuéntenos la necesidad y el equipo de Zappy retoma el contacto. El
+        formulario arma el mensaje y abre el chat. No guarda datos en este sitio.
+      </p>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap contact-grid">
+      <div class="stack">
+        <a class="card card-orange card-lg" href={whatsappHref()}>
+          <span class="kicker">WhatsApp</span>
+          <h2>{site.whatsappDisplay}</h2>
+          <p>Mismo número del enlace wa.me publicado en zappydelivery.com.</p>
+          <span class="more">Abrir chat</span>
+        </a>
+        <article class="card card-white">
+          <span class="kicker">Teléfono</span>
+          <h2><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></h2>
+          <p>Número de negocio registrado en el sitio actual.</p>
+        </article>
+        <article class="note">
+          <strong>Datos por confirmar</strong>
+          <span>{site.emailTodo}</span>
+          <span style="display:block; margin-top: 8px;">{site.addressTodo}</span>
+          <span style="display:block; margin-top: 8px;">{site.hoursTodo}</span>
+        </article>
+      </div>
+      <form class="card card-white card-lg form" data-wa-form data-number={site.whatsappE164}>
+        <h2 class="h3">Armar el mensaje</h2>
+        <label>
+          Nombre
+          <input name="nombre" type="text" autocomplete="name" placeholder="Su nombre" />
+        </label>
+        <label>
+          Empresa
+          <input name="empresa" type="text" autocomplete="organization" placeholder="Nombre del negocio" />
+        </label>
+        <label>
+          Qué necesita
+          <select name="servicio" required>
+            <option value="">Seleccione una opción</option>
+            {services.map((service) => <option value={service.name}>{service.name}</option>)}
+            <option value="ZappyPoints">ZappyPoints</option>
+            <option value="Otra consulta">Otra consulta</option>
+          </select>
+        </label>
+        <label>
+          Mensaje
+          <textarea name="mensaje" required placeholder="Volumen, zonas y qué hay que entregar"></textarea>
+        </label>
+        <button class="btn btn-cta" type="submit">Continuar en WhatsApp</button>
+        <p class="muted">
+          Si el botón no abre el chat, use el enlace de arriba. No pedimos descarga de app.
+        </p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector("[data-wa-form]");
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const nombre = String(data.get("nombre") || "").trim();
+      const empresa = String(data.get("empresa") || "").trim();
+      const servicio = String(data.get("servicio") || "").trim();
+      const mensaje = String(data.get("mensaje") || "").trim();
+      const who = [nombre && `Soy ${nombre}`, empresa && `de ${empresa}`].filter(Boolean).join(", ");
+      const text = `${who ? `${who}. ` : ""}Necesito información sobre ${servicio}. ${mensaje}`;
+      const number = form.dataset.number;
+      window.location.href = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+    });
+  }
+</script>

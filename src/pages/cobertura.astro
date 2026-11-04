@@ -1,0 +1,79 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { cityZones, interiorCities } from "../data/coverage";
+import { whatsappHref } from "../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../lib/schema";
+
+const title = "Cobertura de envíos en Panamá y al interior | Zappy";
+const description =
+  "Zonas de mensajería en Ciudad de Panamá: Centro, Norte, Este y Oeste. Envíos nacionales a David, Chitré, Santiago, Las Tablas, Aguadulce y Penonomé.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Cobertura" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Cobertura", path: "/cobertura" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-sky page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">Envíos nacionales Panamá</p>
+      <h1 class="h1">Cobertura en la ciudad y rutas al interior.</h1>
+      <p class="lede">
+        La mensajería en moto cubre la Ciudad de Panamá y sus afueras. El interior
+        va en panel o camión, con una lista aparte de ciudades.
+      </p>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap">
+      <h2 class="h2">Ciudad de Panamá y afueras</h2>
+      <div class="zone-grid" style="margin-top: 20px;">
+        {
+          cityZones.map((zone) => (
+            <article class="card card-white">
+              <h3>{zone.name}</h3>
+              <p>{zone.body}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="muted" style="margin-top: 16px;">
+        El sitio no detalla barrios, corregimientos ni tiempos por zona.
+      </p>
+    </div>
+  </section>
+  <section class="band band-navy section">
+    <div class="wrap">
+      <h2 class="h2">Envíos Panamá–David y al interior</h2>
+      <p class="lede" style="margin-top: 14px;">
+        En traslados en panel o camión, la distribución sale de la Ciudad de
+        Panamá hacia el interior o regresa. Estas son las ciudades que el sitio nombra:
+      </p>
+      <ul class="city-pills">
+        {interiorCities.map((city) => <li>{city}</li>)}
+      </ul>
+      <p style="margin-top: 18px; max-width: 46rem;">
+        No hay un calendario público de salidas. Si su carga va a David, Chitré,
+        Santiago u otra de estas ciudades, confirme la ruta por WhatsApp.
+      </p>
+      <a
+        class="btn btn-cta"
+        style="margin-top: 20px;"
+        href={whatsappHref("Hola, quiero confirmar cobertura para un envío en Panamá o al interior.")}
+      >
+        Confirmar mi zona
+      </a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,55 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { services } from "../../data/services";
+import { whatsappHref } from "../../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../../lib/schema";
+
+const title = "Servicios de mensajería y última milla en Panamá | Zappy";
+const description =
+  "Mensajería en moto en Panamá y traslados en panel o camión: tarjetas, comercios, diligencias, Zappy Express y Zappy Business.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Servicios" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Servicios", path: "/servicios" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-sky page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">Empresas de mensajería en Panamá</p>
+      <h1 class="h1">Servicios de courier y última milla.</h1>
+      <p class="lede">
+        En la ciudad, mensajería en moto. Si el bulto no cabe o la ruta va al
+        interior, panel o camión. Elija la operación o escríbanos y la armamos con usted.
+      </p>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap point-grid">
+      {
+        services.map((service) => (
+          <a class="card card-white card-lg" href={`/servicios/${service.slug}`}>
+            <span class="kicker">{service.eyebrow}</span>
+            <h2>{service.name}</h2>
+            <p>{service.summary}</p>
+            <span class="more">Ver detalle</span>
+          </a>
+        ))
+      }
+    </div>
+    <div class="wrap" style="margin-top: 28px;">
+      <a class="btn btn-cta" href={whatsappHref()}>Cotizar por WhatsApp</a>
+    </div>
+  </section>
+</Base>
