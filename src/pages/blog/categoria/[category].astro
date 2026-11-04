@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import { categories, type Category } from "../../../data/blog";
+import { formatDate } from "../../../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../../../lib/schema";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return (Object.keys(categories) as Category[]).map((category) => ({
+    params: { category },
+    props: {
+      category,
+      posts: posts
+        .filter((post) => post.data.category === category)
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { category, posts } = Astro.props;
+const meta = categories[category];
+const path = `/blog/categoria/${category}`;
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: meta.label, path },
+  ]),
+);
+---
+
+<Base title={meta.title} description={meta.description} jsonLd={jsonLd}>
+  <section class="band band-sky page-hero">
+    <div class="wrap">
+      <Breadcrumbs
+        items={[
+          { name: "Inicio", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: meta.label },
+        ]}
+      />
+      <p class="eyebrow">Categoría</p>
+      <h1 class="h1">{meta.label}</h1>
+      <p class="lede">{meta.description}</p>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap post-list">
+      {
+        posts.map((post) => (
+          <a class="post-card" href={`/blog/${post.id}`}>
+            <p class="meta">{formatDate(post.data.pubDate)}</p>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>

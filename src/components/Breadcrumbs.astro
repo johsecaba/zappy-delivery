@@ -1,0 +1,24 @@
+---
+interface Crumb {
+  name: string;
+  path?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="crumbs" aria-label="Miga de pan">
+  <ol>
+    {
+      items.map((item) => (
+        <li>
+          {item.path ? <a href={item.path}>{item.name}</a> : <span>{item.name}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

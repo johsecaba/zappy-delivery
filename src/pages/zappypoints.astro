@@ -1,0 +1,84 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { whatsappHref, site } from "../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../lib/schema";
+
+const title = "ZappyPoints: entregas gratis por volumen | Zappy Delivery";
+const description =
+  "Programa de lealtad ZappyPoints: por cada 100 puntos, una entrega gratis. Aplican restricciones. Consulte las reglas por WhatsApp.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "ZappyPoints" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  {
+    "@type": "Service",
+    name: "ZappyPoints",
+    serviceType: "Programa de lealtad",
+    description,
+    url: "https://www.zappydelivery.com/zappypoints",
+    provider: { "@id": "https://www.zappydelivery.com/#organization" },
+    areaServed: { "@type": "Country", name: "Panamá" },
+  },
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "ZappyPoints", path: "/zappypoints" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-sky page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">Ahorro por volumen</p>
+      <h1 class="h1">Por cada 100 puntos, una entrega gratis.</h1>
+      <p class="lede">
+        ZappyPoints es el programa de lealtad. En entregas a comercios, el sitio
+        dice que brinda entregas gratis cada mes. Aplican restricciones.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-cta" href={whatsappHref("Hola, quiero saber cómo funcionan los ZappyPoints.")}>
+          Preguntar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap point-grid">
+      <article class="point">
+        <h2>Cómo se acumulan</h2>
+        <p>
+          El sitio invita a programar entregas para empezar a sumar puntos. No
+          publica una tabla de cuántos puntos da cada tipo de envío.
+        </p>
+      </article>
+      <article class="point">
+        <h2>Qué se canjea</h2>
+        <p>La regla visible es una: 100 puntos equivalen a una entrega gratis.</p>
+      </article>
+      <article class="point">
+        <h2>Restricciones</h2>
+        <p>
+          El sitio marca que aplican restricciones y no las detalla en la página.
+          El reglamento hay que pedirlo.
+        </p>
+      </article>
+      <article class="note">
+        <strong>Dato por confirmar</strong>
+        <span>
+          TODO: publicar la tabla de puntos, la vigencia y las exclusiones.
+          Hoy solo está el canje de 100 puntos y la nota de restricciones.
+          Este sitio no enlaza a tiendas de aplicaciones.
+        </span>
+      </article>
+    </div>
+    <div class="wrap" style="margin-top: 24px;">
+      <p class="muted">WhatsApp {site.whatsappDisplay}</p>
+    </div>
+  </section>
+</Base>

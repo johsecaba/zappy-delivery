@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/brand/logo-zappy.png";
+import { whatsappHref } from "../config/site";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const links = [
+  { href: "/servicios", label: "Servicios" },
+  { href: "/cobertura", label: "Cobertura" },
+  { href: "/empresas", label: "Empresas" },
+  { href: "/zappypoints", label: "Puntos" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contacto", label: "Contacto" },
+];
+
+function current(href: string) {
+  if (href === "/") return path === "/";
+  return path === href || path.startsWith(`${href}/`);
+}
+---
+
+<div class="nav-wrap">
+  <div class="nav" data-nav>
+    <a class="logo-link" href="/" aria-label="Zappy Delivery, inicio">
+      <Image
+        src={logo}
+        alt="Logotipo de Zappy Delivery"
+        width={180}
+        height={105}
+        densities={[1, 2]}
+        loading="eager"
+      />
+    </a>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      data-menu-button
+    >
+      Menú
+    </button>
+    <div class="nav-panel" id="site-menu" data-menu>
+      <nav aria-label="Principal">
+        <div class="nav-links">
+          {
+            links.map((link) => (
+              <a
+                href={link.href}
+                aria-current={current(link.href) ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+      <a class="btn btn-cta btn-sm" href={whatsappHref()}>WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector("[data-nav]");
+  const button = document.querySelector("[data-menu-button]");
+  if (root instanceof HTMLElement && button instanceof HTMLButtonElement) {
+    const setOpen = (open: boolean) => {
+      root.classList.toggle("is-open", open);
+      button.setAttribute("aria-expanded", String(open));
+      button.textContent = open ? "Cerrar" : "Menú";
+    };
+    button.addEventListener("click", () => {
+      setOpen(button.getAttribute("aria-expanded") !== "true");
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setOpen(false);
+    });
+  }
+</script>

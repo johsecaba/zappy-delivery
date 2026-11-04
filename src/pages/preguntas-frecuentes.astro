@@ -1,0 +1,48 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import FaqList from "../components/FaqList.astro";
+import { faqs } from "../data/faq";
+import { whatsappHref } from "../config/site";
+import { organizationNode, breadcrumbNode, faqNode, graph } from "../lib/schema";
+
+const title = "Preguntas frecuentes de mensajería | Zappy Delivery";
+const description =
+  "Cobertura, tarjetas bancarias, envíos a David, Zappy Express, ZappyPoints, seguro y contacto por WhatsApp. Respuestas con lo que Zappy publica.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Preguntas frecuentes" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  faqNode(faqs),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Preguntas frecuentes", path: "/preguntas-frecuentes" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-sky page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">FAQ</p>
+      <h1 class="h1">Preguntas frecuentes.</h1>
+      <p class="lede">
+        Cada respuesta sale del sitio, los términos o el aviso que Zappy ya
+        publicó. Donde falta un dato, lo decimos.
+      </p>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap" style="display: grid; gap: 20px;">
+      <FaqList items={faqs} />
+      <a class="btn btn-cta" href={whatsappHref("Hola, tengo una pregunta sobre el servicio de Zappy Delivery.")} style="justify-self: start;">
+        Preguntar por WhatsApp
+      </a>
+    </div>
+  </section>
+</Base>

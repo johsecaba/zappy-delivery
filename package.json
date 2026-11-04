@@ -1,0 +1,33 @@
+{
+  "name": "zappy-delivery",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio de Zappy Delivery, mensajería y última milla para empresas en Panamá.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johsecaba/zappy-delivery.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johsecaba/zappy-delivery/issues"
+  },
+  "homepage": "https://github.com/johsecaba/zappy-delivery#readme",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/inter": "^5.2.8",
+    "astro": "^7.4.5",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

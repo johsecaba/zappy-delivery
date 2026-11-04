@@ -1,0 +1,82 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site } from "../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../lib/schema";
+
+const title = "Aviso de privacidad | Zappy Delivery";
+const description =
+  "Aviso de privacidad de Soluciones Operativas, S.A., responsable del tratamiento de datos de clientes de Zappy Delivery en Panamá.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Aviso de privacidad" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Aviso de privacidad", path: "/aviso-de-privacidad" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-linen page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <h1 class="h1">Aviso de privacidad.</h1>
+      <p class="lede">
+        Resumen del aviso publicado por {site.legalName}. El texto operativo es
+        el que la empresa entrega a sus titulares.
+      </p>
+    </div>
+  </section>
+  <section class="band band-white section">
+    <div class="wrap prose">
+      <h2>Responsable</h2>
+      <p>
+        {site.legalName} es la persona jurídica responsable del tratamiento de
+        los datos personales. El aviso dice que el tratamiento debe ser
+        legítimo, controlado e informado.
+      </p>
+      <h2>Para qué los usa</h2>
+      <p>Si usted es cliente, los fines publicados son:</p>
+      <ul>
+        <li>Darlo de alta como cliente de los productos o servicios.</li>
+        <li>
+          Atender y dar seguimiento a solicitudes: información, cotizaciones,
+          avisos y gestiones parecidas.
+        </li>
+      </ul>
+      <h2>Qué datos recaba</h2>
+      <p>
+        Pueden obtenerse cuando usted los entrega, cuando visita el sitio o
+        cuando usa servicios en línea. Para todo titular mencionan datos de
+        identificación. Para clientes y proveedores, datos patrimoniales y
+        financieros. Si tratan datos sensibles, el aviso indica que se pide
+        aceptación por los mecanismos que la empresa tenga.
+      </p>
+      <h2>Cookies</h2>
+      <p>
+        El aviso describe qué son las cookies y los web beacons, y afirma que no
+        las usan para obtener información personal como el navegador, las
+        páginas visitadas, los vínculos, la dirección IP o el sitio previo.
+        Este sitio nuevo no instala analítica ni un aviso de cookies propio.
+      </p>
+      <h2>Transferencias</h2>
+      <p>
+        Los datos pueden tratarse dentro y fuera de Panamá, por filiales,
+        subsidiarias, socios comerciales o prestadores de servicio, bajo la
+        misma política de protección, según el aviso.
+      </p>
+      <h2>Seguridad y cambios</h2>
+      <p>
+        Declaran medidas administrativas, físicas y técnicas, y se reservan el
+        derecho de modificar el aviso. El formulario de contacto de este sitio
+        no envía los datos a un servidor de Zappy: abre WhatsApp en su teléfono.
+      </p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,66 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { services } from "../../data/services";
+import { site, whatsappHref } from "../../config/site";
+import { organizationNode, breadcrumbNode, serviceNode, graph } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Servicios", path: "/servicios" },
+  { name: service.name },
+];
+const jsonLd = graph(
+  organizationNode(),
+  serviceNode(service),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Servicios", path: "/servicios" },
+    { name: service.name, path: `/servicios/${service.slug}` },
+  ]),
+);
+---
+
+<Base title={service.title} description={service.description} jsonLd={jsonLd}>
+  <section class="band band-navy page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">{service.eyebrow}</p>
+      <h1 class="h1">{service.h1}</h1>
+      <p class="lede">{service.intro}</p>
+      <div class="cta-row">
+        <a class="btn btn-cta" href={whatsappHref(service.whatsappMessage)}>
+          WhatsApp {site.whatsappDisplay}
+        </a>
+        <a class="btn btn-white" href="/servicios">Todos los servicios</a>
+      </div>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap point-grid">
+      {
+        service.points.map((point) => (
+          <article class="point">
+            <h2>{point.title}</h2>
+            <p>{point.body}</p>
+          </article>
+        ))
+      }
+    </div>
+    {
+      service.extra && (
+        <div class="wrap" style="margin-top: 20px;">
+          <p class="note">{service.extra}</p>
+        </div>
+      )
+    }
+  </section>
+</Base>

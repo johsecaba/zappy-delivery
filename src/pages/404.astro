@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import { whatsappHref } from "../config/site";
+
+const title = "Página no encontrada | Zappy Delivery";
+const description = "Esa dirección no existe en el sitio de Zappy Delivery.";
+---
+
+<Base title={title} description={description} noindex showBanner={false}>
+  <section class="band band-sky page-hero">
+    <div class="wrap">
+      <h1 class="h1">Esa página no está en la ruta.</h1>
+      <p class="lede">
+        El enlace no coincide con ninguna página. Vuelva al inicio o escriba por WhatsApp.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-cta" href="/">Ir al inicio</a>
+        <a class="btn btn-white" href={whatsappHref()}>WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</Base>

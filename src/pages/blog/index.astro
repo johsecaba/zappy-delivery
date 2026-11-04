@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { categories } from "../../data/blog";
+import { formatDate } from "../../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../../lib/schema";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const title = "Blog de mensajería y última milla | Zappy Delivery";
+const description =
+  "Guías para empresas que contratan mensajería en Panamá: cómo elegir un courier y cómo preparar la última milla.";
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Blog", path: "/blog" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-sky page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={[{ name: "Inicio", path: "/" }, { name: "Blog" }]} />
+      <p class="eyebrow">Para quien contrata, no para quien pide almuerzo</p>
+      <h1 class="h1">Blog de mensajería para empresas.</h1>
+      <p class="lede">
+        Textos prácticos sobre courier y última milla en Panamá. Sin cifras
+        inventadas: si un dato es de Zappy, decimos de dónde sale.
+      </p>
+      <div class="cta-row">
+        {
+          Object.entries(categories).map(([slug, category]) => (
+            <a class="btn btn-white btn-sm" href={`/blog/categoria/${slug}`}>
+              {category.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap post-list">
+      {
+        posts.map((post) => (
+          <a class="post-card" href={`/blog/${post.id}`}>
+            <p class="meta">
+              {categories[post.data.category].label} · {formatDate(post.data.pubDate)}
+            </p>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            <span class="more">Leer</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>

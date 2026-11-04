@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { categories } from "../../data/blog";
+import { formatDate, whatsappHref } from "../../config/site";
+import { organizationNode, breadcrumbNode, articleNode, graph } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const category = categories[post.data.category];
+const path = `/blog/${post.id}`;
+const published = post.data.pubDate.toISOString().slice(0, 10);
+
+const jsonLd = graph(
+  organizationNode(),
+  articleNode({
+    title: post.data.title,
+    description: post.data.description,
+    path,
+    datePublished: published,
+    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10),
+  }),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.data.title, path },
+  ]),
+);
+---
+
+<Base
+  title={`${post.data.title} | Zappy Delivery`}
+  description={post.data.description}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article>
+    <header class="band band-navy page-hero">
+      <div class="wrap">
+        <Breadcrumbs
+          items={[
+            { name: "Inicio", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: category.label, path: `/blog/categoria/${post.data.category}` },
+            { name: post.data.title },
+          ]}
+        />
+        <p class="eyebrow">{category.label}</p>
+        <h1 class="h1">{post.data.title}</h1>
+        <p class="meta" style="color: white; margin-top: 14px;">
+          {formatDate(post.data.pubDate)} · Zappy Delivery
+        </p>
+      </div>
+    </header>
+    <div class="band band-white section">
+      <div class="wrap prose">
+        <Content />
+        <p>
+          <a class="btn btn-cta" href={whatsappHref("Hola, leí el blog de Zappy Delivery y quiero hablar de mensajería para mi empresa.")}>
+            Escribir por WhatsApp
+          </a>
+        </p>
+      </div>
+    </div>
+  </article>
+</Base>

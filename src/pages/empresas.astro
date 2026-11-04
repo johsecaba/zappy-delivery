@@ -1,0 +1,106 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site, whatsappHref } from "../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../lib/schema";
+
+const title = "Mensajería para empresas en Panamá | Zappy Delivery";
+const description =
+  "Por qué una empresa usa Zappy: última milla con tablero, evidencia, mensajería corporativa y rutas al interior. Courier B2B en Ciudad de Panamá.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Empresas" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Empresas", path: "/empresas" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-navy page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">Para operaciones, no para un antojo</p>
+      <h1 class="h1">Un courier para el negocio, no una app de comida.</h1>
+      <p class="lede">
+        Zappy es gestión de transporte y carga de última milla para uso comercial.
+        En la ciudad la flota es de mensajeros en moto. Distribuye inventario,
+        mueve mercancía entre sucursales y entrega puerta a puerta para e-commerce.
+      </p>
+    </div>
+  </section>
+  <section class="band band-linen section">
+    <div class="wrap point-grid">
+      <article class="point">
+        <h2>Misión</h2>
+        <p>
+          Trabajar de la mano con los clientes, con soluciones logísticas que les
+          generan ahorros y satisfacción de sus propios clientes por encima de la competencia.
+        </p>
+      </article>
+      <article class="point">
+        <h2>Visión</h2>
+        <p>Ser el proveedor número uno en Panamá para entregas de última milla.</p>
+      </article>
+      <article class="point">
+        <h2>Quién opera</h2>
+        <p>
+          {site.legalName}, en {site.city}. El equipo se describe como calificado
+          y comprometido con entregas exitosas.
+        </p>
+      </article>
+      <article class="point">
+        <h2>Cómo se controla</h2>
+        <p>
+          Sistema de operaciones para planificar y controlar, más un tablero para
+          que la empresa vea su operación. En comercios, la evidencia es fotográfica.
+        </p>
+      </article>
+    </div>
+  </section>
+  <section class="band band-sky section">
+    <div class="wrap split">
+      <div>
+        <h2 class="h2">Qué suele contratar una empresa</h2>
+        <ul class="feature-list" style="margin-top: 16px;">
+          <li>
+            <strong>Tarjetas bancarias</strong>
+            <span>Protocolo, coordinación con el destinatario y cifras publicadas de ese servicio.</span>
+          </li>
+          <li>
+            <strong>Tienda y e-commerce</strong>
+            <span>Mensajería en moto hasta la puerta del cliente, con foto y avisos.</span>
+          </li>
+          <li>
+            <strong>Oficina</strong>
+            <span>Documentos, cheques, CSS y Mitradel, con retorno de papelería.</span>
+          </li>
+          <li>
+            <strong>Bodega</strong>
+            <span>Panel o camión, sucursales y las ciudades del interior que Zappy nombra.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="stack">
+        <article class="card card-white card-lg">
+          <h3>Express o Business</h3>
+          <p>
+            Si sale de un punto hacia muchas direcciones, es Express. Si muchos
+            bultos van a un mismo lugar, es Business.
+          </p>
+          <a class="more" href="/servicios/zappy-express">Ver Zappy Express</a>
+          <a class="more" href="/servicios/zappy-business">Ver Zappy Business</a>
+        </article>
+        <a class="btn btn-cta" href={whatsappHref("Hola, quiero hablar de mensajería para mi empresa con Zappy Delivery.")}>
+          Hablar con Zappy
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

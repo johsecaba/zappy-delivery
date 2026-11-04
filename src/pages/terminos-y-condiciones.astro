@@ -1,0 +1,79 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site } from "../config/site";
+import { organizationNode, breadcrumbNode, graph } from "../lib/schema";
+
+const title = "Términos y condiciones | Zappy Delivery";
+const description =
+  "Términos bajo los cuales Soluciones Operativas, S.A. acepta el transporte de mercancías para Zappy Delivery en Panamá.";
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Términos y condiciones" },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Términos y condiciones", path: "/terminos-y-condiciones" },
+  ]),
+);
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <section class="band band-linen page-hero">
+    <div class="wrap">
+      <Breadcrumbs items={crumbs} />
+      <h1 class="h1">Términos y condiciones.</h1>
+      <p class="lede">
+        Condiciones publicadas por {site.legalName} para aceptar el transporte
+        de mercancías. Con la firma del recibo, el cliente las acepta.
+      </p>
+    </div>
+  </section>
+  <section class="band band-white section">
+    <div class="wrap prose">
+      <h2>Papel de transportador</h2>
+      <p>
+        La empresa actúa como transportador. El cliente la libera de reclamos
+        por la mercancía entregada. No abre los bultos, ignora su contenido y
+        no responde por él. No responde cuando el daño nace de culpa del
+        interesado o de una autoridad, incluido el decomiso.
+      </p>
+      <h2>Embalaje y bienes excluidos</h2>
+      <p>
+        No responde por mercancía frágil que no esté embalada, etiquetada y
+        notificada, y puede rechazarla. Tampoco responde por pérdida de dinero,
+        piedras o metales preciosos, valores al portador, cheques, joyas y
+        efectos de valor.
+      </p>
+      <h2>Cobros en efectivo</h2>
+      <p>
+        Los conductores solo aceptan cobros en efectivo por mercancía entregada
+        que no excedan 50 dólares. El cobro y el monto se notifican antes.
+      </p>
+      <h2>Fuerza mayor</h2>
+      <p>
+        No responde por pérdida, daño o demora por guerra, cuarentena, huelga,
+        motín, accidente, disturbio, clima o cualquier caso fortuito o de fuerza mayor.
+      </p>
+      <h2>Seguro</h2>
+      <p>
+        Hay una póliza que cubre daños hasta 100 dólares, salvo que el cliente
+        pida seguro de carga por un valor mayor y pague la tarifa correspondiente.
+        Esa tarifa no está publicada.
+      </p>
+      <h2>Datos de la orden y entregas fallidas</h2>
+      <p>
+        El cliente garantiza que la información de cada orden es correcta y
+        entrega datos personales para que la empresa transporte la mercancía.
+        Si la entrega falla por causa no imputable a la empresa —dirección
+        equivocada, cliente ausente, paquete equivocado, sin respuesta telefónica,
+        área insegura, mal acceso o clima muy desfavorable— puede cambiar la
+        fecha y se reserva un cobro adicional.
+      </p>
+    </div>
+  </section>
+</Base>
