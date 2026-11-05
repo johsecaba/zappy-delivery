@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { categories } from "../data/blog";
+import { formatDate } from "../config/site";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  level?: "h2" | "h3";
+  eager?: boolean;
+}
+
+const { post, level = "h2", eager = false } = Astro.props;
+const category = categories[post.data.category];
+const Heading = level;
+---
+
+<a class="post-card" href={`/blog/${post.id}`}>
+  <img
+    src={post.data.image}
+    alt={post.data.imageAlt}
+    width="1200"
+    height="630"
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+  />
+  <p class="meta">
+    {category.label} · {formatDate(post.data.pubDate)}
+  </p>
+  <Heading>{post.data.title}</Heading>
+  <p>{post.data.description}</p>
+  <span class="more">Leer artículo</span>
+</a>

@@ -7,6 +7,8 @@ import { services } from "../data/services";
 import { homeFaqs } from "../data/faq";
 import { cityZones } from "../data/coverage";
 import { organizationNode, graph } from "../lib/schema";
+import { getPublishedPosts } from "../lib/posts";
+import PostCard from "../components/PostCard.astro";
 import photo from "../assets/gallery/entregas-exitosas.jpg";
 import logoHechizo from "../assets/gallery/cliente-hechizo-de-luna.jpg";
 import logoDecofruta from "../assets/gallery/cliente-decofruta.jpg";
@@ -25,6 +27,8 @@ const logos = [
   { src: logoArima, alt: "Logotipo de Arima, en la galería de entregas de Zappy" },
   { src: logoPerri, alt: "Logotipo de Perriropita Pet Store, en la galería de entregas de Zappy" },
 ];
+
+const latestPosts = (await getPublishedPosts()).slice(0, 3);
 
 const jsonLd = graph(organizationNode(), {
   "@type": "WebSite",
@@ -263,6 +267,19 @@ const jsonLd = graph(organizationNode(), {
         </a>
       </div>
       <FaqList items={homeFaqs} />
+    </div>
+  </section>
+
+  <section class="band band-white section" aria-labelledby="blog-inicio">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="blog-inicio">Del blog.</h2>
+        <p>Textos para quien contrata mensajería en Panamá.</p>
+      </div>
+      <div class="post-grid cols-3">
+        {latestPosts.map((post) => <PostCard post={post} level="h3" />)}
+      </div>
+      <a class="btn btn-ghost" href="/blog" style="margin-top: 18px;">Ver todos los artículos</a>
     </div>
   </section>
 

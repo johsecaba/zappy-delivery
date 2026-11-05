@@ -89,7 +89,13 @@ export function articleNode(input: {
   path: string;
   datePublished: string;
   dateModified?: string;
+  image?: string;
 }) {
+  const image = input.image
+    ? input.image.startsWith("http")
+      ? input.image
+      : absoluteUrl(input.image)
+    : absoluteUrl("/og-zappy.jpg");
   return {
     "@type": "Article",
     headline: input.title,
@@ -100,7 +106,7 @@ export function articleNode(input: {
     dateModified: input.dateModified ?? input.datePublished,
     author: { "@id": organizationId },
     publisher: { "@id": organizationId },
-    image: absoluteUrl("/og-zappy.jpg"),
+    image,
   };
 }
 

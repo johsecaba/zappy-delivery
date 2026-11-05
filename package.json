@@ -5,8 +5,9 @@
   "description": "Sitio de Zappy Delivery, mensajería y última milla para empresas en Panamá.",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/generate-blog-banners.mjs && astro dev",
+    "build": "node scripts/generate-blog-banners.mjs && astro build",
+    "banners": "node scripts/generate-blog-banners.mjs",
     "preview": "astro preview",
     "check": "astro check"
   },
@@ -25,6 +26,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/inter": "^5.2.8",
     "astro": "^7.4.5",
+    "satori": "^0.63.2",
     "sharp": "^0.35.5"
   },
   "devDependencies": {
