@@ -14,12 +14,14 @@ interface Props {
   title: string;
   description: string;
   ogType?: "website" | "article";
+  image?: string;
+  imageAlt?: string;
   jsonLd?: unknown;
   noindex?: boolean;
   showBanner?: boolean;
 }
 
-const { title, description, ogType, jsonLd, noindex, showBanner = true } = Astro.props;
+const { title, description, ogType, image, imageAlt, jsonLd, noindex, showBanner = true } = Astro.props;
 ---
 
 <html lang={site.lang}>
@@ -30,6 +32,8 @@ const { title, description, ogType, jsonLd, noindex, showBanner = true } = Astro
       title={title}
       description={description}
       ogType={ogType}
+      image={image}
+      imageAlt={imageAlt}
       jsonLd={jsonLd}
       noindex={noindex}
     />

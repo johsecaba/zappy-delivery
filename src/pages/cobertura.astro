@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CoverageMap from "../components/CoverageMap.astro";
 import { cityZones, interiorCities } from "../data/coverage";
 import { whatsappHref } from "../config/site";
 import { organizationNode, breadcrumbNode, graph } from "../lib/schema";
@@ -24,7 +25,7 @@ const jsonLd = graph(
 ---
 
 <Base title={title} description={description} jsonLd={jsonLd}>
-  <section class="band band-sky page-hero">
+  <section class="band band-sky page-hero page-hero-map">
     <div class="wrap">
       <Breadcrumbs items={crumbs} />
       <p class="eyebrow">Envíos nacionales Panamá</p>
@@ -33,6 +34,7 @@ const jsonLd = graph(
         La mensajería en moto cubre la Ciudad de Panamá y sus afueras. El interior
         va en panel o camión, con una lista aparte de ciudades.
       </p>
+      <CoverageMap />
     </div>
   </section>
   <section class="band band-linen section">
@@ -41,16 +43,16 @@ const jsonLd = graph(
       <div class="zone-grid" style="margin-top: 20px;">
         {
           cityZones.map((zone) => (
-            <article class="card card-white">
-              <h3>{zone.name}</h3>
+            <article id={zone.id} class="card card-white zone-card">
+              <h3>
+                <span class={`swatch tone-${zone.tone}`} aria-hidden="true"></span>
+                {zone.name}
+              </h3>
               <p>{zone.body}</p>
             </article>
           ))
         }
       </div>
-      <p class="muted" style="margin-top: 16px;">
-        El sitio no detalla barrios, corregimientos ni tiempos por zona.
-      </p>
     </div>
   </section>
   <section class="band band-navy section">

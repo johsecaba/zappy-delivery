@@ -1,20 +1,18 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../../../layouts/Base.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PostCard from "../../../components/PostCard.astro";
 import { categories, type Category } from "../../../data/blog";
-import { formatDate } from "../../../config/site";
+import { getPublishedPosts } from "../../../lib/posts";
 import { organizationNode, breadcrumbNode, graph } from "../../../lib/schema";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getPublishedPosts();
   return (Object.keys(categories) as Category[]).map((category) => ({
     params: { category },
     props: {
       category,
-      posts: posts
-        .filter((post) => post.data.category === category)
-        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+      posts: posts.filter((post) => post.data.category === category),
     },
   }));
 }
@@ -49,16 +47,8 @@ const jsonLd = graph(
     </div>
   </section>
   <section class="band band-linen section">
-    <div class="wrap post-list">
-      {
-        posts.map((post) => (
-          <a class="post-card" href={`/blog/${post.id}`}>
-            <p class="meta">{formatDate(post.data.pubDate)}</p>
-            <h2>{post.data.title}</h2>
-            <p>{post.data.description}</p>
-          </a>
-        ))
-      }
+    <div class="wrap post-grid cols-2">
+      {posts.map((post) => <PostCard post={post} />)}
     </div>
   </section>
 </Base>

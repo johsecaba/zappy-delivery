@@ -3,6 +3,8 @@ title: "Última milla para negocios en Panamá: qué dejar listo antes de despac
 description: "Cómo coordinar delivery para un negocio en Panamá. Direcciones, fotos, avisos, Express frente a Business y lo que un courier no publica en la web."
 pubDate: 2026-11-04
 category: operaciones
+image: /blog/banners/ultima-milla-ecommerce-panama.png
+imageAlt: "Banner del artículo «Última milla para negocios en Panamá»: logotipo de Zappy Delivery y un paquete geométrico, en azul marino, celeste y naranja."
 ---
 
 La última milla es el tramo en el que el paquete ya salió de su bodega y todavía no está en manos de quien lo compró. En Panamá ese tramo se rompe por una dirección a medias, un edificio sin nombre en el citófono o una promesa de «hoy» que el courier nunca ofreció. Esto es lo que conviene dejar listo antes de despachar con cualquier mensajería, y cómo lo describe Zappy Delivery cuando el dato existe.

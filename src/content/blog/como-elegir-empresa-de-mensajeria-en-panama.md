@@ -3,6 +3,8 @@ title: "Cómo elegir una empresa de mensajería en Panamá"
 description: "Criterios para contratar mensajería empresarial en Panamá. Cobertura por zona, evidencia, seguro y la diferencia entre tarjetas, documentos y camión."
 pubDate: 2026-11-04
 category: guias
+image: /blog/banners/como-elegir-empresa-de-mensajeria-en-panama.png
+imageAlt: "Banner del artículo «Cómo elegir una empresa de mensajería en Panamá»: logotipo de Zappy Delivery y una moto geométrica de mensajería, en azul marino, celeste y naranja."
 ---
 
 Contratar mensajería para una empresa no es lo mismo que pedir comida. Una tarjeta bancaria, un cheque, un pedido de tienda y un pallet hacia David no comparten ruta, ni riesgo, ni forma de comprobar que llegaron. Esta guía sirve para comparar cualquier courier en Panamá. Las cifras citadas salen de lo que Zappy publica. Que la flota urbana sea en moto es un dato confirmado por la empresa, no una estadística del sitio anterior.

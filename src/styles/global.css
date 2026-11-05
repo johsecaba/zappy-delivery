@@ -16,12 +16,13 @@
   --max: 1200px;
   --border: 3px solid var(--color-ink);
   --border-thin: 2px solid var(--color-ink);
-  --radius-card: 32px;
-  --radius-card-lg: 64px;
+  --radius-card: 16px;
+  --radius-card-lg: 32px;
   --radius-pill: 99px;
-  --radius-nav: 8px;
-  --radius-input: 8px;
-  --radius-sm: 16px;
+  --radius-nav: 4px;
+  --radius-input: 4px;
+  --radius-sm: 8px;
+  --color-navy-tint: #6e8ec4;
   --gap: 16px;
   --section-y: clamp(64px, 8vw, 80px);
 }
@@ -372,6 +373,8 @@ ol {
   border: var(--border);
   border-radius: var(--radius-card);
   padding: 16px;
+  max-height: calc(100vh - 120px);
+  overflow: auto;
 }
 
 .nav-links {
@@ -418,6 +421,8 @@ ol {
     padding: 0;
     background: transparent;
     border-radius: 0;
+    max-height: none;
+    overflow: visible;
   }
 
   .nav-links {
@@ -1060,11 +1065,43 @@ select:focus {
   transform: translate(-2px, -2px);
 }
 
-.post-card h2 {
-  font-size: clamp(26px, 3vw, 36px);
+.post-card h2,
+.post-card h3 {
+  font-size: clamp(22px, 2.4vw, 32px);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.08;
+}
+
+.post-card img,
+.post-hero {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  border: var(--border);
+  border-radius: var(--radius-card);
+  background: var(--color-navy);
+}
+
+.post-hero {
+  margin-top: 22px;
+  border-radius: var(--radius-card-lg);
+}
+
+.post-grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 800px) {
+  .post-grid.cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .post-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .meta {
@@ -1208,6 +1245,245 @@ select:focus {
   font-weight: 700;
 }
 
+.nav-dd {
+  position: relative;
+}
+
+.nav-dd-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.nav-dd-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -4px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-dd.is-open .nav-dd-toggle {
+  border-color: var(--color-ink);
+  background: var(--color-linen);
+}
+
+.nav-dd-toggle svg {
+  display: block;
+  transition: transform 0.12s ease;
+}
+
+.nav-dd.is-open .nav-dd-toggle svg {
+  transform: rotate(180deg);
+}
+
+.nav-dd-panel {
+  display: grid;
+  gap: 8px;
+}
+
+.nav-dd-panel[hidden] {
+  display: none;
+}
+
+.nav-links a.nav-service {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  text-decoration: none;
+  background: var(--color-linen);
+  border: var(--border-thin);
+  border-radius: var(--radius-card);
+  font-weight: 500;
+}
+
+.nav-service {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  text-decoration: none;
+  background: var(--color-linen);
+  border: var(--border-thin);
+  border-radius: var(--radius-card);
+}
+
+.nav-service-kicker {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.nav-service strong {
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.nav-service p {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.nav-service[aria-current="page"],
+.nav-service:hover {
+  background: var(--color-white);
+}
+
+@media (min-width: 1040px) {
+  .nav-dd {
+    position: static;
+  }
+
+  .nav-dd-toggle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav-dd-panel {
+    position: absolute;
+    z-index: 5;
+    left: 8px;
+    right: 8px;
+    top: 100%;
+    padding-top: 10px;
+  }
+
+  .nav-dd-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 14px;
+    background: var(--color-white);
+    border: var(--border);
+    border-radius: var(--radius-card);
+  }
+}
+
+.coverage-map {
+  margin-top: 18px;
+}
+
+.coverage-map-frame {
+  border: var(--border);
+  border-radius: var(--radius-card-lg);
+  overflow: hidden;
+  background: #c5e6f6;
+  line-height: 0;
+}
+
+.coverage-map-frame svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.zone-link {
+  cursor: pointer;
+}
+
+.zone-link path {
+  stroke: #000;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.zone-link:hover path,
+.zone-link:focus-visible path {
+  stroke-width: 5px;
+}
+
+.tone-centro { fill: var(--color-navy); }
+.tone-norte { fill: var(--color-sky); }
+.tone-este { fill: var(--color-cta); }
+.tone-oeste { fill: var(--color-navy-tint); }
+.ink-light { fill: #fff; }
+.ink-dark { fill: #000; }
+
+.water-label {
+  fill: var(--color-navy);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.map-caption {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin-top: 12px;
+}
+
+.map-legend a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-weight: 700;
+  background: var(--color-white);
+  border: var(--border-thin);
+  border-radius: var(--radius-card);
+}
+
+.map-legend a:hover {
+  background: var(--color-linen);
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  border: 2px solid #000;
+  border-radius: 4px;
+  background: var(--swatch, var(--color-navy));
+}
+
+.swatch.tone-centro { background: var(--color-navy); }
+.swatch.tone-norte { background: var(--color-sky); }
+.swatch.tone-este { background: var(--color-cta); }
+.swatch.tone-oeste { background: var(--color-navy-tint); }
+
+.zone-card {
+  scroll-margin-top: 120px;
+}
+
+.zone-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-hero-map {
+  padding-bottom: 28px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1216,8 +1492,13 @@ select:focus {
   .btn,
   .card,
   .post-card,
-  .wa-float {
+  .wa-float,
+  .nav-dd-toggle svg {
     transition: none;
+  }
+
+  .nav-dd.is-open .nav-dd-toggle svg {
+    transform: none;
   }
 
   .btn:hover,

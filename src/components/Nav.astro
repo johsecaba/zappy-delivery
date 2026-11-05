@@ -2,11 +2,11 @@
 import { Image } from "astro:assets";
 import logo from "../assets/brand/logo-zappy.png";
 import { whatsappHref } from "../config/site";
+import { services } from "../data/services";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const links = [
-  { href: "/servicios", label: "Servicios" },
   { href: "/cobertura", label: "Cobertura" },
   { href: "/empresas", label: "Empresas" },
   { href: "/zappypoints", label: "Puntos" },
@@ -44,6 +44,55 @@ function current(href: string) {
     <div class="nav-panel" id="site-menu" data-menu>
       <nav aria-label="Principal">
         <div class="nav-links">
+          <div class="nav-dd" data-services>
+            <div class="nav-dd-trigger">
+              <a
+                href="/servicios"
+                data-services-link
+                aria-expanded="false"
+                aria-controls="services-menu"
+                aria-haspopup="true"
+                aria-current={current("/servicios") ? "page" : undefined}
+              >
+                Servicios
+              </a>
+              <button
+                class="nav-dd-toggle"
+                type="button"
+                data-services-toggle
+                aria-expanded="false"
+                aria-controls="services-menu"
+                aria-label="Mostrar los servicios"
+              >
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                  <path
+                    d="M3 6l5 5 5-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+            <div id="services-menu" class="nav-dd-panel" data-services-panel hidden>
+              <div class="nav-dd-grid">
+                {
+                  services.map((service, index) => (
+                    <a
+                      class="nav-service"
+                      href={`/servicios/${service.slug}`}
+                      aria-current={path === `/servicios/${service.slug}` ? "page" : undefined}
+                    >
+                      <span class="nav-service-kicker">0{index + 1}</span>
+                      <strong>{service.name}</strong>
+                      <p>{service.summary}</p>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
           {
             links.map((link) => (
               <a
@@ -64,17 +113,107 @@ function current(href: string) {
 <script>
   const root = document.querySelector("[data-nav]");
   const button = document.querySelector("[data-menu-button]");
-  if (root instanceof HTMLElement && button instanceof HTMLButtonElement) {
-    const setOpen = (open: boolean) => {
-      root.classList.toggle("is-open", open);
-      button.setAttribute("aria-expanded", String(open));
-      button.textContent = open ? "Cerrar" : "Menú";
-    };
+  const dropdown = document.querySelector("[data-services]");
+  const servicesLink = document.querySelector("[data-services-link]");
+  const servicesToggle = document.querySelector("[data-services-toggle]");
+  const servicesPanel = document.querySelector("[data-services-panel]");
+
+  const desktop = () => window.matchMedia("(min-width: 1040px)").matches;
+  let closeTimer = 0;
+  let suppressFocusOpen = false;
+
+  const setMenuOpen = (open: boolean) => {
+    if (!(root instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) return;
+    root.classList.toggle("is-open", open);
+    button.setAttribute("aria-expanded", String(open));
+    button.textContent = open ? "Cerrar" : "Menú";
+    if (!open) setServicesOpen(false);
+  };
+
+  const setServicesOpen = (open: boolean) => {
+    if (!(dropdown instanceof HTMLElement) || !(servicesPanel instanceof HTMLElement)) return;
+    dropdown.classList.toggle("is-open", open);
+    servicesPanel.toggleAttribute("hidden", !open);
+    for (const el of [servicesLink, servicesToggle]) {
+      if (el instanceof HTMLElement) el.setAttribute("aria-expanded", String(open));
+    }
+  };
+
+  const servicesOpen = () =>
+    servicesToggle instanceof HTMLElement && servicesToggle.getAttribute("aria-expanded") === "true";
+
+  const scheduleServicesClose = () => {
+    window.clearTimeout(closeTimer);
+    closeTimer = window.setTimeout(() => setServicesOpen(false), 280);
+  };
+
+  const cancelServicesClose = () => {
+    window.clearTimeout(closeTimer);
+  };
+
+  if (button instanceof HTMLButtonElement) {
     button.addEventListener("click", () => {
-      setOpen(button.getAttribute("aria-expanded") !== "true");
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") setOpen(false);
+      setMenuOpen(button.getAttribute("aria-expanded") !== "true");
     });
   }
+
+  if (dropdown instanceof HTMLElement && servicesLink instanceof HTMLAnchorElement && servicesToggle instanceof HTMLButtonElement) {
+    dropdown.addEventListener("pointerenter", (event) => {
+      if (!desktop() || event.pointerType === "touch") return;
+      cancelServicesClose();
+      setServicesOpen(true);
+    });
+
+    dropdown.addEventListener("pointerleave", (event) => {
+      if (!desktop() || event.pointerType === "touch") return;
+      scheduleServicesClose();
+    });
+
+    servicesToggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      cancelServicesClose();
+      setServicesOpen(!servicesOpen());
+    });
+
+    servicesLink.addEventListener("click", (event) => {
+      const coarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+      if (coarse && !servicesOpen()) {
+        event.preventDefault();
+        setServicesOpen(true);
+      }
+    });
+
+    dropdown.addEventListener("focusin", () => {
+      if (!desktop() || suppressFocusOpen) return;
+      cancelServicesClose();
+      setServicesOpen(true);
+    });
+
+    dropdown.addEventListener("focusout", (event) => {
+      if (!desktop()) return;
+      const next = event.relatedTarget;
+      if (next instanceof Node && dropdown.contains(next)) return;
+      scheduleServicesClose();
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    if (servicesOpen()) {
+      suppressFocusOpen = true;
+      setServicesOpen(false);
+      if (servicesLink instanceof HTMLElement) servicesLink.focus();
+      window.setTimeout(() => {
+        suppressFocusOpen = false;
+      }, 50);
+    }
+    setMenuOpen(false);
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (!(dropdown instanceof HTMLElement)) return;
+    if (event.target instanceof Node && dropdown.contains(event.target)) return;
+    setServicesOpen(false);
+  });
 </script>

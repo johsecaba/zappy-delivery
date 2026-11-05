@@ -1,0 +1,102 @@
+---
+import { cityZones } from "../data/coverage";
+
+const zones = {
+  centro: cityZones[0],
+  norte: cityZones[1],
+  este: cityZones[2],
+  oeste: cityZones[3],
+};
+
+const shapes = [
+  {
+    zone: zones.oeste,
+    tone: "oeste",
+    ink: "ink-dark",
+    d: "M16 64 L208 34 L236 158 L268 356 Q140 372 16 328 Z",
+    label: { x: 112, y: 176 },
+  },
+  {
+    zone: zones.norte,
+    tone: "norte",
+    ink: "ink-dark",
+    d: "M294 30 L524 42 L552 196 L430 184 L322 160 Z",
+    label: { x: 420, y: 108 },
+  },
+  {
+    zone: zones.centro,
+    tone: "centro",
+    ink: "ink-light",
+    d: "M322 160 L430 184 L552 196 L596 300 L630 396 Q520 430 352 376 L322 160 Z",
+    label: { x: 478, y: 286 },
+  },
+  {
+    zone: zones.este,
+    tone: "este",
+    ink: "ink-dark",
+    d: "M524 42 L782 56 L782 336 Q720 360 630 396 L596 300 L552 196 Z",
+    label: { x: 668, y: 200 },
+  },
+];
+---
+
+<figure class="coverage-map">
+  <div class="coverage-map-frame">
+    <svg
+      viewBox="0 0 800 520"
+      role="group"
+      aria-labelledby="coverage-map-title coverage-map-desc"
+      font-family="Inter, ui-sans-serif, sans-serif"
+    >
+      <title id="coverage-map-title">Mapa esquemático de las zonas de cobertura en la Ciudad de Panamá</title>
+      <desc id="coverage-map-desc">
+        Cuatro zonas alrededor de la bahía y del canal: Panamá Oeste al oeste del canal, Panamá Centro en el núcleo urbano junto a la costa, Panamá Norte hacia el norte y Panamá Este hacia el este. Cada zona lleva a su descripción.
+      </desc>
+      <rect width="800" height="520" fill="#c5e6f6" />
+      <path
+        d="M208 34 L294 30 L322 160 L352 376 L268 356 L236 158 Z"
+        fill="#9fd4ee"
+        stroke="#000"
+        stroke-width="3"
+        stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
+        aria-hidden="true"
+      />
+      {
+        shapes.map((shape) => (
+          <a
+            class="zone-link"
+            href={`#${shape.zone.id}`}
+            aria-label={`${shape.zone.name}. Ir a la descripción de la zona.`}
+          >
+            <path class={`tone-${shape.tone}`} d={shape.d} />
+            <text class={shape.ink} text-anchor="middle" font-size="32" font-weight="800" aria-hidden="true">
+              <tspan x={shape.label.x} y={shape.label.y}>Panamá</tspan>
+              <tspan x={shape.label.x} dy="36">{shape.zone.name.replace("Panamá ", "")}</tspan>
+            </text>
+          </a>
+        ))
+      }
+      <text class="water-label" x="268" y="100" text-anchor="middle" aria-hidden="true">Canal</text>
+      <text class="water-label" x="470" y="478" text-anchor="middle" font-size="20" aria-hidden="true">
+        Bahía de Panamá
+      </text>
+    </svg>
+  </div>
+  <figcaption class="map-caption">
+    Esquema de las cuatro zonas que el sitio nombra. El sitio no detalla barrios, corregimientos ni tiempos por zona.
+  </figcaption>
+  <ul class="map-legend">
+    {
+      cityZones.map((zone) => (
+        <li>
+          <a href={`#${zone.id}`}>
+            <span class={`swatch tone-${zone.tone}`} aria-hidden="true"></span>
+            {zone.name}
+            <span class="visually-hidden">, ir a la descripción</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</figure>
