@@ -1,0 +1,28 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/account/my-account", "destination": "/", "permanent": true },
+    { "source": "/blank-ncx68", "destination": "/contacto", "permanent": true },
+    { "source": "/borrador", "destination": "/", "permanent": true },
+    { "source": "/borrador-de-quienes-somos", "destination": "/empresas", "permanent": true },
+    { "source": "/borrador-de-servicios", "destination": "/servicios/zappy-express", "permanent": true },
+    { "source": "/copia-de-borrador-de-servicios1", "destination": "/servicios/zappy-business", "permanent": true },
+    { "source": "/copia-de-comercios", "destination": "/servicios/entregas-comercios-ecommerce", "permanent": true },
+    { "source": "/copia-de-cotiza-tu-envío", "destination": "/contacto", "permanent": true },
+    { "source": "/copia-de-mensajería-corporativa", "destination": "/servicios/traslados-panel-camion", "permanent": true },
+    { "source": "/copia-de-políticas-de-privacidad", "destination": "/preguntas-frecuentes", "permanent": true },
+    { "source": "/copia-de-preguntas-frecuentes-zappy-m", "destination": "/preguntas-frecuentes", "permanent": true },
+    { "source": "/copia-de-qué-necesitas", "destination": "/contacto", "permanent": true },
+    { "source": "/copia-de-quienes-somos", "destination": "/servicios/entrega-de-tarjetas-bancarias", "permanent": true },
+    { "source": "/copia-de-registro", "destination": "/preguntas-frecuentes", "permanent": true },
+    { "source": "/copia-de-registro-nuevos-usuarios", "destination": "/contacto", "permanent": true },
+    { "source": "/copia-de-servicio-zappy-express", "destination": "/servicios/zappy-express", "permanent": true },
+    { "source": "/copia-de-tarjetas-bancarias", "destination": "/servicios/mensajeria-empresarial", "permanent": true },
+    { "source": "/copia-de-términos-y-condiciones-zappy", "destination": "/terminos-y-condiciones", "permanent": true },
+    { "source": "/copia-de-zappypoints", "destination": "/zappypoints", "permanent": true },
+    { "source": "/cotizaciones", "destination": "/contacto", "permanent": true },
+    { "source": "/registro-empresas", "destination": "/empresas", "permanent": true },
+    { "source": "/resgi", "destination": "/contacto", "permanent": true },
+    { "source": "/términos-y-condiciones", "destination": "/terminos-y-condiciones", "permanent": true }
+  ]
+}
