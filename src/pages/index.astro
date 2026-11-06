@@ -2,11 +2,11 @@
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import FaqList from "../components/FaqList.astro";
-import { site, whatsappHref } from "../config/site";
+import { homeDescription, site, siteSummary, whatsappHref } from "../config/site";
 import { services } from "../data/services";
 import { homeFaqs } from "../data/faq";
 import { cityZones } from "../data/coverage";
-import { organizationNode, graph } from "../lib/schema";
+import { faqNode, organizationNode, websiteNode, graph } from "../lib/schema";
 import { getPublishedPosts } from "../lib/posts";
 import PostCard from "../components/PostCard.astro";
 import photo from "../assets/gallery/entregas-exitosas.jpg";
@@ -15,9 +15,8 @@ import logoDecofruta from "../assets/gallery/cliente-decofruta.jpg";
 import logoArima from "../assets/gallery/cliente-arima.jpg";
 import logoPerri from "../assets/gallery/cliente-perriropita.jpg";
 
-const title = "Mensajería en moto Panamá para empresas | Zappy Delivery";
-const description =
-  "Mensajería en moto en Panamá para empresas: tarjetas, tiendas y documentos. Si no cabe en moto, panel o camión al interior. WhatsApp.";
+const title = site.homeTitle;
+const description = homeDescription();
 
 const fills = ["navy", "sky", "white", "sky", "white", "navy"] as const;
 
@@ -30,14 +29,7 @@ const logos = [
 
 const latestPosts = (await getPublishedPosts()).slice(0, 3);
 
-const jsonLd = graph(organizationNode(), {
-  "@type": "WebSite",
-  "@id": `${site.url}/#website`,
-  url: site.url,
-  name: site.name,
-  inLanguage: site.locale,
-  publisher: { "@id": `${site.url}/#organization` },
-});
+const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
 ---
 
 <Base title={title} description={description} jsonLd={jsonLd}>
@@ -46,10 +38,7 @@ const jsonLd = graph(organizationNode(), {
       <div>
         <p class="eyebrow">Courier B2B · {site.city}</p>
         <h1 class="display">Mensajería en moto para empresas en Panamá.</h1>
-        <p class="lede">
-          La flota urbana es de mensajeros en moto: tarjetas bancarias, tiendas y
-          documentos. Si la carga no cabe, hay panel o camión hasta David y el interior.
-        </p>
+        <p class="lede">{siteSummary()}</p>
         <div class="cta-row">
           <a class="btn btn-cta" href={whatsappHref()}>Escribir por WhatsApp</a>
           <a class="btn btn-white" href="/servicios">Ver servicios</a>

@@ -14,6 +14,16 @@ export const site = {
   country: "Panamá",
   countryCode: "PA",
   tagline: "Mensajería y última milla para empresas en Panamá.",
+  /** Título de la portada. La consulta objetivo es «mensajería corporativa panamá». */
+  homeTitle: "Mensajería corporativa en Panamá | Zappy Delivery",
+  /**
+   * Misión y visión publicadas en /empresas.
+   */
+  mission:
+    "Trabajar de la mano con los clientes, con soluciones logísticas que les generan ahorros y satisfacción de sus propios clientes por encima de la competencia.",
+  vision: "Ser el proveedor número uno en Panamá para entregas de última milla.",
+  positioning:
+    "Zappy es gestión de transporte y carga de última milla para uso comercial. En la ciudad la flota es de mensajeros en moto. Distribuye inventario, mueve mercancía entre sucursales y entrega puerta a puerta para e-commerce.",
   /**
    * Número del enlace wa.me del botón de WhatsApp en zappydelivery.com
    * (barra social del sitio): https://wa.me/+50766009480
@@ -64,6 +74,19 @@ export const site = {
 
 export function whatsappHref(message: string = site.whatsappMessage): string {
   return `https://wa.me/${site.whatsappE164}?text=${encodeURIComponent(message)}`;
+}
+
+/**
+ * Dos oraciones citables: quién es Zappy, qué hace, dónde y cómo contactarlo.
+ * Usa solo datos publicados (sin correo, calle, horario ni tarifas).
+ */
+export function siteSummary(): string {
+  return `Zappy Delivery es una empresa de mensajería corporativa y mensajería en moto en ${site.city}, ${site.country}. Atiende tarjetas bancarias, documentos y entregas de tiendas por WhatsApp al ${site.whatsappDisplay}; si la carga no cabe en moto, hay panel o camión hasta el interior.`;
+}
+
+/** Meta description de la portada, más corta que siteSummary(). */
+export function homeDescription(): string {
+  return `Mensajería corporativa y mensajería en moto en ${site.city}. Tarjetas, documentos y tiendas. WhatsApp ${site.whatsappDisplay}. Si no cabe en moto, panel o camión.`;
 }
 
 export function absoluteUrl(path: string): string {

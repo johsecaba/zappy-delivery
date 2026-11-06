@@ -1,8 +1,58 @@
-import { site, absoluteUrl } from "../config/site";
+import { site, absoluteUrl, siteSummary } from "../config/site";
+import { interiorCities } from "../data/coverage";
 import type { FaqItem } from "../data/faq";
-import type { Service } from "../data/services";
+import { services, type Service } from "../data/services";
 
 export const organizationId = `${site.url}/#organization`;
+const catalogId = `${site.url}/#offer-catalog`;
+
+/**
+ * schema.org no define un tipo CourierService. La entidad es LocalBusiness
+ * (empresa local de mensajería) más Organization.
+ */
+function countryNode() {
+  return { "@type": "Country", name: site.country };
+}
+
+function cityNode(name: string) {
+  return {
+    "@type": "City",
+    name,
+    containedInPlace: countryNode(),
+  };
+}
+
+function areaServed(scope: "urban" | "national") {
+  const cities = scope === "national" ? [site.city, ...interiorCities] : [site.city];
+  return [...cities.map((city) => cityNode(city)), countryNode()];
+}
+
+function scopeFor(slug: string): "urban" | "national" {
+  return slug === "traslados-panel-camion" ? "national" : "urban";
+}
+
+function serviceEntity(service: Service) {
+  return {
+    "@type": "Service",
+    name: service.name,
+    serviceType: service.name,
+    /**
+     * El blog publica que, en Zappy, la mensajería corporativa es este servicio.
+     */
+    ...(service.slug === "mensajeria-empresarial"
+      ? { alternateName: "Mensajería corporativa" }
+      : {}),
+    description: service.description,
+    url: absoluteUrl(`/servicios/${service.slug}`),
+    provider: { "@id": organizationId },
+    areaServed: areaServed(scopeFor(service.slug)),
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: `https://wa.me/${site.whatsappE164}`,
+      servicePhone: `+${site.whatsappE164}`,
+    },
+  };
+}
 
 export function organizationNode() {
   return {
@@ -10,19 +60,23 @@ export function organizationNode() {
     "@id": organizationId,
     name: site.name,
     legalName: site.legalName,
+    description: siteSummary(),
     url: site.url,
     image: absoluteUrl("/og-zappy.jpg"),
-    logo: absoluteUrl("/favicon-192.png"),
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl("/favicon-192.png"),
+    },
     telephone: site.phoneE164,
     address: {
       "@type": "PostalAddress",
       addressLocality: site.city,
+      addressRegion: "Panamá",
       addressCountry: site.countryCode,
     },
-    areaServed: {
-      "@type": "Country",
-      name: site.country,
-    },
+    areaServed: areaServed("national"),
+    knowsLanguage: "es",
+    slogan: site.tagline,
     sameAs: [site.social.instagram, site.social.facebook, site.social.linkedin],
     contactPoint: [
       {
@@ -33,7 +87,41 @@ export function organizationNode() {
         availableLanguage: ["es"],
         areaServed: site.countryCode,
       },
+      {
+        "@type": "ContactPoint",
+        telephone: site.phoneE164,
+        contactType: "customer service",
+        availableLanguage: ["es"],
+        areaServed: site.countryCode,
+      },
     ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      "@id": catalogId,
+      name: "Servicios de mensajería y última milla",
+      itemListElement: services.map((service, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Offer",
+          name: service.name,
+          url: absoluteUrl(`/servicios/${service.slug}`),
+          itemOffered: serviceEntity(service),
+        },
+      })),
+    },
+  };
+}
+
+export function websiteNode() {
+  return {
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    url: site.url,
+    name: site.name,
+    description: siteSummary(),
+    inLanguage: site.locale,
+    publisher: { "@id": organizationId },
   };
 }
 
@@ -50,28 +138,20 @@ export function breadcrumbNode(items: { name: string; path: string }[]) {
 }
 
 export function serviceNode(service: Service) {
-  return {
-    "@type": "Service",
-    name: service.name,
-    serviceType: service.name,
-    description: service.description,
-    url: absoluteUrl(`/servicios/${service.slug}`),
-    provider: { "@id": organizationId },
-    areaServed: {
-      "@type": "Country",
-      name: site.country,
-    },
-    availableChannel: {
-      "@type": "ServiceChannel",
-      serviceUrl: `https://wa.me/${site.whatsappE164}`,
-      servicePhone: `+${site.whatsappE164}`,
-    },
-  };
+  return serviceEntity(service);
 }
 
-export function faqNode(items: FaqItem[]) {
+export function faqNode(items: FaqItem[], path?: string) {
   return {
     "@type": "FAQPage",
+    ...(path
+      ? {
+          "@id": `${absoluteUrl(path)}#faq`,
+          url: absoluteUrl(path),
+          inLanguage: site.locale,
+          isPartOf: { "@id": `${site.url}/#website` },
+        }
+      : {}),
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
