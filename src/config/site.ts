@@ -6,7 +6,7 @@
 export const site = {
   name: "Zappy Delivery",
   legalName: "Soluciones Operativas, S.A.",
-  url: "https://www.zappydelivery.com",
+  url: "https://zappydelivery.com",
   locale: "es-PA",
   ogLocale: "es_PA",
   lang: "es-PA",
