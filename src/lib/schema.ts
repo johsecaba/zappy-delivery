@@ -32,20 +32,16 @@ function scopeFor(slug: string): "urban" | "national" {
 }
 
 function serviceEntity(service: Service) {
+  const corporate = service.slug === "mensajeria-corporativa";
   return {
     "@type": "Service",
     name: service.name,
     serviceType: service.name,
-    /**
-     * El blog publica que, en Zappy, la mensajería corporativa es este servicio.
-     */
-    ...(service.slug === "mensajeria-empresarial"
-      ? { alternateName: "Mensajería corporativa" }
-      : {}),
+    ...(corporate ? { alternateName: "Mensajería empresarial" } : {}),
     description: service.description,
     url: absoluteUrl(`/servicios/${service.slug}`),
     provider: { "@id": organizationId },
-    areaServed: areaServed(scopeFor(service.slug)),
+    areaServed: corporate ? cityNode(site.city) : areaServed(scopeFor(service.slug)),
     availableChannel: {
       "@type": "ServiceChannel",
       serviceUrl: `https://wa.me/${site.whatsappE164}`,

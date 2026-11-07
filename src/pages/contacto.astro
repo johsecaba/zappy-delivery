@@ -49,11 +49,15 @@ const jsonLd = graph(
           <h2><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></h2>
           <p>Número de negocio registrado en el sitio actual.</p>
         </article>
+        <article class="card card-white">
+          <span class="kicker">Horario</span>
+          <h2>{site.serviceHours}</h2>
+          <p>Horario de la mensajería. Los días de la semana no están publicados.</p>
+        </article>
         <article class="note">
           <strong>Datos por confirmar</strong>
           <span>{site.emailTodo}</span>
           <span style="display:block; margin-top: 8px;">{site.addressTodo}</span>
-          <span style="display:block; margin-top: 8px;">{site.hoursTodo}</span>
         </article>
       </div>
       <form class="card card-white card-lg form" data-wa-form data-number={site.whatsappE164}>

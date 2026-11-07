@@ -47,13 +47,17 @@ export const site = {
   emailTodo:
     "TODO: confirmar el correo público. No aparece en zappydelivery.com. La ficha de Google Play de la app lista info@zappymail.com.",
   /**
-   * TODO: el sitio solo dice "Ciudad de Panamá". No hay calle ni horario.
+   * TODO: el sitio solo dice "Ciudad de Panamá". No hay calle.
+   * El horario de la mensajería sí está confirmado; los días, no.
    */
   streetAddress: null as string | null,
   addressTodo:
     "TODO: publicar la dirección de la oficina. El sitio actual solo indica Ciudad de Panamá.",
-  hoursTodo:
-    "TODO: confirmar y publicar el horario de atención. No aparece en zappydelivery.com.",
+  /**
+   * Horario de servicio confirmado por la empresa. No indicó los días:
+   * no inventar lunes a viernes ni fines de semana.
+   */
+  serviceHours: "8:00 a.m. a 5:00 p.m.",
   whatsappMessage:
     "Hola, quiero información sobre el servicio de mensajería de Zappy Delivery para mi empresa.",
   social: {
@@ -81,7 +85,8 @@ export function whatsappHref(message: string = site.whatsappMessage): string {
 
 /**
  * Dos oraciones citables: quién es Zappy, qué hace, dónde y cómo contactarlo.
- * Usa solo datos publicados (sin correo, calle, horario ni tarifas).
+ * Usa solo datos publicados (sin correo, calle ni tarifas).
+ * El horario de la mensajería corporativa está en serviceHours; los días no.
  */
 export function siteSummary(): string {
   return `Zappy Delivery es una empresa de mensajería corporativa y mensajería en moto en ${site.city}, ${site.country}. Atiende tarjetas bancarias, documentos y entregas de tiendas por WhatsApp al ${site.whatsappDisplay}; si la carga no cabe en moto, hay panel o camión hasta el interior.`;

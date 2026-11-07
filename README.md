@@ -41,7 +41,7 @@ Si el dominio de salida cambia, actualice `site` en `astro.config.mjs` y `url` e
 
 ## Dónde está cada cosa
 
-- `src/config/site.ts` — nombre legal, WhatsApp, teléfono, redes y TODOs (correo, dirección, horario).
+- `src/config/site.ts` — nombre legal, WhatsApp, teléfono, redes, horario de la mensajería (sin días) y TODOs (correo, dirección).
 - `src/data/services.ts` — los seis servicios.
 - `src/data/faq.ts` — preguntas y respuestas.
 - `src/data/coverage.ts` — zonas e interior.
@@ -69,6 +69,6 @@ El naranja es el único acento de acción. El hover del botón usa `#E76033`, un
 
 - Correo público (no está en zappydelivery.com).
 - Dirección de la oficina (solo consta Ciudad de Panamá).
-- Horario de atención.
+- Días de la semana del horario (el servicio publica de 8:00 a.m. a 5:00 p.m., sin días).
 - Tabla de ZappyPoints y restricciones. Solo está publicado el canje de 100 puntos por una entrega gratis.
 - Tarifas y tiempos que el sitio actual no publica. No se inventaron.
