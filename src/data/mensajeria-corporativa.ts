@@ -21,7 +21,13 @@ if (corporateDescription.length > 155 || !corporateDescription.includes("mensaje
   throw new Error(`Description de mensajería corporativa: ${corporateDescription.length} caracteres.`);
 }
 
-export const corporateIntro = `La mensajería corporativa en Panamá es el servicio con el que Zappy Delivery mueve documentos y diligencias de una empresa dentro de la Ciudad de Panamá. Un mensajero en moto retira en su oficina y entrega en el banco, el bufete, la notaría, la inmobiliaria, la aseguradora o la clínica. El horario es de ${site.serviceHours} Opera ${site.legalName} La cotización es según el volumen: no hay una tarifa fija publicada. Pida la cotización por WhatsApp al ${site.whatsappDisplay} o llame al ${site.phoneDisplay}.`;
+/** Texto del dueño. El único ajuste es el espacio doble después de «y más.» */
+export const corporateIntroBody =
+  "Zappy Delivery ofrece el servicio de mensajería corporativa para mover documentos y diligencias de una empresa dentro de la Ciudad de Panamá. Trabajamos con bancos, firmas legales, notarías, inmobiliarias, aseguradoras, clínicas y más.";
+
+export const corporateIntroCta = "Pida cotización Gratis";
+
+export const corporateIntro = `${corporateIntroBody} ${corporateIntroCta}.`;
 
 export type CorporateGroup = {
   heading: string;

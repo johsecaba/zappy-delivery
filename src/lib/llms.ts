@@ -5,7 +5,8 @@ import { faqs } from "../data/faq";
 import {
   corporateCta,
   corporateFaqs,
-  corporateIntro,
+  corporateIntroBody,
+  corporateIntroCta,
   corporatePath,
   corporateSections,
 } from "../data/mensajeria-corporativa";
@@ -35,7 +36,9 @@ function isoDate(date: Date): string {
 }
 
 function corporateMarkdown(): string[] {
-  const lines: string[] = [corporateIntro, ""];
+  const quote = services.find((service) => service.slug === "mensajeria-corporativa");
+  const quoteUrl = `https://wa.me/${site.whatsappE164}?text=${encodeURIComponent(quote?.whatsappMessage ?? site.whatsappMessage)}`;
+  const lines: string[] = [`${corporateIntroBody} [${corporateIntroCta}](${quoteUrl}).`, ""];
   for (const section of corporateSections) {
     lines.push(`## ${section.heading}`, "");
     for (const paragraph of section.paragraphs ?? []) lines.push(absolutize(paragraph), "");

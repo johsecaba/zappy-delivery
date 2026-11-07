@@ -5,6 +5,8 @@ import { getService } from "../../data/services";
 import {
   corporateCta,
   corporateFaqs,
+  corporateIntroBody,
+  corporateIntroCta,
   corporatePath,
   corporateSections,
 } from "../../data/mensajeria-corporativa";
@@ -58,7 +60,10 @@ const jsonLd = graph(
         <Breadcrumbs items={crumbs} />
         <p class="eyebrow">{service.eyebrow}</p>
         <h1 class="h1">{service.h1}</h1>
-        <p class="lede">{service.intro}</p>
+        <p class="lede">
+          {corporateIntroBody}{" "}
+          <a href={whatsappHref(service.whatsappMessage)}>{corporateIntroCta}.</a>
+        </p>
         <div class="cta-row">
           <a class="btn btn-cta" href={whatsappHref(service.whatsappMessage)}>
             WhatsApp {site.whatsappDisplay}
