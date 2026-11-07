@@ -14,8 +14,11 @@ export const site = {
   country: "Panamá",
   countryCode: "PA",
   tagline: "Mensajería y última milla para empresas en Panamá.",
-  /** Título de la portada. La consulta objetivo es «mensajería corporativa panamá». */
-  homeTitle: "Mensajería corporativa en Panamá | Zappy Delivery",
+  /**
+   * Título de la portada. El layout no añade la marca: este texto es el <title>.
+   * 59 caracteres. Incluye B2B y última milla.
+   */
+  homeTitle: "Mensajería corporativa B2B y última milla en Panamá | Zappy",
   /**
    * Misión y visión publicadas en /empresas.
    */
@@ -84,9 +87,9 @@ export function siteSummary(): string {
   return `Zappy Delivery es una empresa de mensajería corporativa y mensajería en moto en ${site.city}, ${site.country}. Atiende tarjetas bancarias, documentos y entregas de tiendas por WhatsApp al ${site.whatsappDisplay}; si la carga no cabe en moto, hay panel o camión hasta el interior.`;
 }
 
-/** Meta description de la portada, más corta que siteSummary(). */
+/** Meta description de la portada. 144 caracteres. Incluye B2B y última milla. */
 export function homeDescription(): string {
-  return `Mensajería corporativa y mensajería en moto en ${site.city}. Tarjetas, documentos y tiendas. WhatsApp ${site.whatsappDisplay}. Si no cabe en moto, panel o camión.`;
+  return "Mensajería corporativa B2B y última milla en Panamá: tarjetas, documentos y entregas para tiendas en moto. Panel o camión al interior. WhatsApp.";
 }
 
 export function absoluteUrl(path: string): string {
