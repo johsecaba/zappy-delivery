@@ -1,6 +1,6 @@
 # Zappy Delivery
 
-Sitio estático de [Zappy Delivery](https://www.zappydelivery.com/), mensajería en moto y última milla para empresas en Panamá. La carga que no cabe en moto, y las rutas al interior, van en panel o camión. Hecho con [Astro](https://astro.build/) (salida estática). El idioma del sitio es español de Panamá (`es-PA`).
+Sitio estático de [Zappy Delivery](https://zappydelivery.com/), mensajería en moto y última milla para empresas en Panamá. La carga que no cabe en moto, y las rutas al interior, van en panel o camión. Hecho con [Astro](https://astro.build/) (salida estática). El idioma del sitio es español de Panamá (`es-PA`).
 
 El diseño sigue una retícula tipo bento: bordes negros de 2–3 px, botones píldora, tarjetas de 32–64 px, bandas a sangre y titulares en peso 800. La paleta es la del logotipo (dos azules y naranja), no la del estilo de referencia original. La tipografía es Inter, servida con `@fontsource`.
 
@@ -29,7 +29,7 @@ npm run preview
 
 ## Despliegue
 
-Sirva el contenido de `dist/`. El dominio previsto en canonical, Open Graph y el sitemap es `https://www.zappydelivery.com` (`site` en `astro.config.mjs`).
+Sirva el contenido de `dist/`. El dominio previsto en canonical, Open Graph y el sitemap es `https://zappydelivery.com` (`site` en `astro.config.mjs`).
 
 | Plataforma | Comando de build | Directorio | Notas |
 | --- | --- | --- | --- |
@@ -46,7 +46,7 @@ Si el dominio de salida cambia, actualice `site` en `astro.config.mjs` y `url` e
 - `src/data/faq.ts` — preguntas y respuestas.
 - `src/data/coverage.ts` — zonas e interior.
 - `src/content/blog/` — artículos (content collection).
-- `public/llms.txt` — ficha de la empresa para buscadores y asistentes.
+- `src/lib/llms.ts` — genera `/llms.txt` y `/llms-full.txt` desde la config, los servicios, las preguntas y el blog. `robots.txt` permite los crawlers de asistentes y enlaza esos archivos y el sitemap.
 - `public/og-zappy.jpg` y los favicon — marca.
 
 El número de WhatsApp es el de `https://wa.me/+50766009480`, enlace de la barra social de zappydelivery.com. Todos los botones usan ese valor.

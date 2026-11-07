@@ -17,7 +17,7 @@ const crumbs = [
 
 const jsonLd = graph(
   organizationNode(),
-  faqNode(faqs),
+  faqNode(faqs, "/preguntas-frecuentes"),
   breadcrumbNode([
     { name: "Inicio", path: "/" },
     { name: "Preguntas frecuentes", path: "/preguntas-frecuentes" },
