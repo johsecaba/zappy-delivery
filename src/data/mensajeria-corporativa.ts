@@ -12,7 +12,7 @@ export const corporatePath = "/servicios/mensajeria-corporativa";
 export const corporateTitle = "Mensajería corporativa en Panamá | Zappy";
 
 export const corporateDescription =
-  "Servicio de mensajería corporativa en Ciudad de Panamá. Documentos y diligencias en moto, de 8:00 a.m. a 5:00 p.m. Cotización según volumen.";
+  "Servicio de mensajería corporativa en Ciudad de Panamá. Lunes a sábado, de 8:00 a.m. a 5:00 p.m. Cotización según volumen.";
 
 if (corporateTitle.length > 60) {
   throw new Error(`Título de mensajería corporativa: ${corporateTitle.length} caracteres.`);
@@ -49,7 +49,7 @@ export const corporateSections: CorporateSection[] = [
       "Documentos de ida y vuelta: retiro en un punto y retorno a su oficina. El resguardo se acuerda antes de despachar.",
       "Cheques y estados de cuenta: cobro en clientes, entrega a proveedores y envío del estado de cuenta.",
       "Trámites: pagos en la Caja de Seguro Social, certificación de cheques en bancos y documentos al Ministerio de Trabajo (Mitradel).",
-      "Seguimiento: puede pedir en qué punto va la diligencia. La prueba de entrega se confirma al cotizar.",
+      "Seguimiento y prueba de entrega. Puede pedir en qué punto va la diligencia. Al entregar hay foto y la firma de quien recibe.",
       "Si no cabe en la moto, el traslado pasa a [panel o camión](/servicios/traslados-panel-camion).",
     ],
   },
@@ -97,7 +97,7 @@ export const corporateSections: CorporateSection[] = [
     heading: "Cobertura y horario",
     paragraphs: [
       "La mensajería en moto cubre toda la Ciudad de Panamá. En el sitio, esa cobertura se describe en cuatro zonas: Panamá Centro, Panamá Norte, Panamá Este y Panamá Oeste, incluidas las afueras. El detalle de las zonas está en [cobertura](/cobertura). No publicamos barrios ni corregimientos. Con la dirección, la cotización dice si entra en la ruta.",
-      `El horario es de ${site.serviceHours} No publicamos los días. Pregúntelos al escribir. Lo que llega fuera de ese horario se coordina para la siguiente ventana.`,
+      `El horario es de ${site.serviceHours} Lo que llega fuera de ese horario, o un domingo, se coordina para la siguiente ventana.`,
       "El interior no va en esta moto. Va en [panel o camión](/servicios/traslados-panel-camion), de la Ciudad de Panamá hacia el interior o de regreso. Las ciudades nombradas son Chitré, Las Tablas, Santiago, David, Aguadulce y Penonomé. No hay salidas ni tiempos de tránsito publicados. Se cotiza aparte.",
     ],
   },
@@ -112,7 +112,7 @@ export const corporateSections: CorporateSection[] = [
       "Diga cuántas entregas hace en la semana y en qué zonas. Ahí se arma la cotización. No hay precio en la web.",
       `En el horario de ${site.serviceHours}, un mensajero en moto retira en su oficina o donde usted indique.`,
       "Entrega en la dirección. Si es ida y vuelta, regresa el documento a su oficina.",
-      "Puede pedir el estado. Foto, firma de quien recibe, o las dos: se escribe en la cotización. Eso no está publicado.",
+      "Puede pedir el estado. La prueba de entrega incluye una foto y la firma de quien recibe.",
     ],
   },
   {
@@ -133,7 +133,7 @@ export const corporateSections: CorporateSection[] = [
       {
         heading: "Planes mensuales por volumen",
         paragraphs: [
-          "Si despacha todas las semanas, se arma un plan del mes y el precio por entrega se conversa en bloque. Cotización según volumen. La factura y el crédito no están publicados. Consúltenos al abrir la cuenta.",
+          "Si despacha todas las semanas, se arma un plan del mes y el precio por entrega se conversa en bloque. Cotización según volumen. El plan se factura cada mes. También hay crédito corporativo. El plazo de pago y el cupo se acuerdan con cada empresa.",
         ],
       },
       // TODO(pricing): ruta dedicada o mensajero fijo por día. El dueño sustituye este texto cuando confirme el modelo. No escribir montos en dólares.
@@ -171,7 +171,7 @@ export const corporateFaqs: FaqItem[] = [
   },
   {
     question: "¿Cuál es el horario del servicio?",
-    answer: `El horario es de ${site.serviceHours} Los días no están publicados. Consúltenos por WhatsApp al ${site.whatsappDisplay} o al ${site.phoneDisplay} antes de dejar una ruta fija.`,
+    answer: `El horario es de ${site.serviceHours} WhatsApp ${site.whatsappDisplay} y teléfono ${site.phoneDisplay}.`,
   },
   {
     question: "¿Hacen entregas el mismo día?",
@@ -181,7 +181,7 @@ export const corporateFaqs: FaqItem[] = [
   {
     question: "¿Dan prueba de entrega o piden firma?",
     answer:
-      "Hay seguimiento. No publicamos si la prueba es foto, firma, o las dos. Consúltenos: queda en la cotización. La foto del sitio es del servicio a comercios, no una regla para documentos.",
+      "Sí. En la mensajería corporativa la prueba de entrega incluye las dos cosas: una foto y la firma de quien recibe.",
   },
   {
     question: "¿Cómo tratan la confidencialidad de los documentos?",
@@ -190,7 +190,7 @@ export const corporateFaqs: FaqItem[] = [
   },
   {
     question: "¿Facturan a la empresa y manejan crédito corporativo?",
-    answer: `Opera ${site.legalName} La factura a su empresa y el crédito no están publicados. Consúltenos al abrir la cuenta. No afirmamos plazo de pago ni cupo.`,
+    answer: `Sí. ${site.legalName} ofrece crédito corporativo y facturación mensual a las empresas. El plazo de pago y el cupo se acuerdan con cada empresa. No hay un plazo ni un límite únicos publicados.`,
   },
   {
     question: "¿Cómo solicito la mensajería corporativa?",

@@ -1,3 +1,4 @@
+import { site } from "../config/site";
 import { corporateDescription, corporateIntro, corporateTitle } from "./mensajeria-corporativa";
 
 export type ServicePoint = {
@@ -112,7 +113,7 @@ export const services: Service[] = [
     description: corporateDescription,
     eyebrow: "Mensajería en moto",
     summary:
-      "Documentos, cheques y diligencias en moto en toda la Ciudad de Panamá. Horario de 8:00 a.m. a 5:00 p.m.",
+      `Documentos, cheques y diligencias en moto en toda la Ciudad de Panamá. Horario de ${site.serviceHours}`,
     intro: corporateIntro,
     points: [
       {
@@ -125,7 +126,7 @@ export const services: Service[] = [
       },
       {
         title: "Ciudad y horario",
-        body: "Toda la Ciudad de Panamá, en moto, de 8:00 a.m. a 5:00 p.m. Los días no están publicados.",
+        body: `Toda la Ciudad de Panamá, en moto, ${site.serviceHours}`,
       },
       {
         title: "Cotización según volumen",

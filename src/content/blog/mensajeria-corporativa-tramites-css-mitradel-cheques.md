@@ -8,7 +8,7 @@ image: /blog/banners/mensajeria-corporativa-tramites-css-mitradel-cheques.png
 imageAlt: "Banner del artículo sobre mensajería corporativa, trámites en la CSS, el Mitradel y cheques: logotipo de Zappy Delivery y una ilustración geométrica de documentos, en azul marino, celeste y naranja."
 ---
 
-En Zappy, la [mensajería corporativa](/servicios/mensajeria-corporativa) es el traslado en moto, dentro de la ciudad, de papelería que a menudo tiene que salir y volver. No es el reparto de una tienda ni la entrega de plásticos de un banco. El horario de ese servicio es de 8:00 a.m. a 5:00 p.m. Los días no están publicados.
+En Zappy, la [mensajería corporativa](/servicios/mensajeria-corporativa) es el traslado en moto, dentro de la ciudad, de papelería que a menudo tiene que salir y volver. No es el reparto de una tienda ni la entrega de plásticos de un banco. El horario de ese servicio es de lunes a sábado, de 8:00 a.m. a 5:00 p.m.
 
 ## Qué publica el servicio
 

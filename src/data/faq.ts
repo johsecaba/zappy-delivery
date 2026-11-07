@@ -61,7 +61,7 @@ export const faqs: FaqItem[] = [
   {
     question: "¿Cómo contacto a Zappy Delivery?",
     answer:
-      "El canal principal de este sitio es WhatsApp al +507 6600-9480, el mismo número del enlace wa.me publicado en zappydelivery.com. El sitio también registra el teléfono +507 215-5583. El horario de la mensajería corporativa es de 8:00 a.m. a 5:00 p.m. Los días no están publicados. No publica correo ni dirección de calle.",
+      "El canal principal de este sitio es WhatsApp al +507 6600-9480, el mismo número del enlace wa.me publicado en zappydelivery.com. El sitio también registra el teléfono +507 215-5583. El horario de la mensajería corporativa es de lunes a sábado, de 8:00 a.m. a 5:00 p.m. No publica correo ni dirección de calle.",
   },
 ];
 

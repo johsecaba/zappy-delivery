@@ -44,6 +44,6 @@ Si esta semana hace las dos cosas, pida dos coordinaciones. El vehículo y la gu
 
 ## Volumen y lo que la web no dice
 
-ZappyPoints promete una entrega gratis por cada 100 puntos, con restricciones que no están detalladas en el sitio. No hay tabla de puntos ni tarifa pública de última milla. Tampoco hay dirección de oficina en la web. El horario publicado de la mensajería corporativa es de 8:00 a.m. a 5:00 p.m., sin días indicados. El resto se pregunta.
+ZappyPoints promete una entrega gratis por cada 100 puntos, con restricciones que no están detalladas en el sitio. No hay tabla de puntos ni tarifa pública de última milla. Tampoco hay dirección de oficina en la web. El horario publicado de la mensajería corporativa es de lunes a sábado, de 8:00 a.m. a 5:00 p.m. El resto se pregunta.
 
 Para arrancar, escriba por WhatsApp qué vende, cuántos pedidos salen y en qué zonas. El número publicado es el [+507 6600-9480](/contacto).

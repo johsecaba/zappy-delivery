@@ -31,6 +31,14 @@ function scopeFor(slug: string): "urban" | "national" {
   return slug === "traslados-panel-camion" ? "national" : "urban";
 }
 
+/** Lunes a sábado, 8:00 a.m. a 5:00 p.m. Confirmado para la mensajería corporativa. */
+const openingHoursSpecification = {
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  opens: "08:00",
+  closes: "17:00",
+};
+
 function serviceEntity(service: Service) {
   const corporate = service.slug === "mensajeria-corporativa";
   return {
@@ -42,6 +50,12 @@ function serviceEntity(service: Service) {
     url: absoluteUrl(`/servicios/${service.slug}`),
     provider: { "@id": organizationId },
     areaServed: corporate ? cityNode(site.city) : areaServed(scopeFor(service.slug)),
+    ...(corporate
+      ? {
+          hoursAvailable: openingHoursSpecification,
+          openingHoursSpecification,
+        }
+      : {}),
     availableChannel: {
       "@type": "ServiceChannel",
       serviceUrl: `https://wa.me/${site.whatsappE164}`,
@@ -71,6 +85,8 @@ export function organizationNode() {
       addressCountry: site.countryCode,
     },
     areaServed: areaServed("national"),
+    openingHours: "Mo-Sa 08:00-17:00",
+    openingHoursSpecification,
     knowsLanguage: "es",
     slogan: site.tagline,
     sameAs: [site.social.instagram, site.social.facebook, site.social.linkedin],
