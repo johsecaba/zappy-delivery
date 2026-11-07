@@ -1,13 +1,14 @@
 ---
 title: "Mensajería corporativa en Panamá: trámites en la CSS, el Mitradel y cheques"
-description: "Qué diligencias cubre la mensajería empresarial de Zappy en la ciudad: documentos de ida y vuelta, cheques, pagos en la CSS y entrega al Mitradel."
+description: "Qué diligencias cubre la mensajería corporativa de Zappy en la ciudad: documentos de ida y vuelta, cheques, pagos en la CSS y entrega al Mitradel."
 pubDate: 2026-11-03
+updatedDate: 2026-11-07
 category: guias
 image: /blog/banners/mensajeria-corporativa-tramites-css-mitradel-cheques.png
 imageAlt: "Banner del artículo sobre mensajería corporativa, trámites en la CSS, el Mitradel y cheques: logotipo de Zappy Delivery y una ilustración geométrica de documentos, en azul marino, celeste y naranja."
 ---
 
-La mensajería corporativa, en Zappy, es el servicio de [mensajería empresarial](/servicios/mensajeria-empresarial). Son diligencias en moto dentro de la ciudad para papelería que a menudo tiene que salir y volver. No es el reparto de una tienda ni la entrega de plásticos de un banco.
+En Zappy, la [mensajería corporativa](/servicios/mensajeria-corporativa) es el traslado en moto, dentro de la ciudad, de papelería que a menudo tiene que salir y volver. No es el reparto de una tienda ni la entrega de plásticos de un banco. El horario de ese servicio es de lunes a sábado, de 8:00 a.m. a 5:00 p.m.
 
 ## Qué publica el servicio
 

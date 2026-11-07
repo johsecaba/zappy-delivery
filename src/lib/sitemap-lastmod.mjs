@@ -127,24 +127,24 @@ function pathname(url) {
  * modificado en el último commit).
  */
 const FALLBACK = {
-  "/": "2026-11-06",
+  "/": "2026-11-07",
   "/aviso-de-privacidad": "2026-11-04",
-  "/blog": "2026-11-04",
-  "/blog/categoria/guias": "2026-11-04",
-  "/blog/categoria/operaciones": "2026-11-04",
-  "/blog/como-elegir-empresa-de-mensajeria-en-panama": "2026-11-04",
-  "/blog/mensajeria-corporativa-tramites-css-mitradel-cheques": "2026-11-03",
-  "/blog/ultima-milla-ecommerce-panama": "2026-11-04",
+  "/blog": "2026-11-07",
+  "/blog/categoria/guias": "2026-11-07",
+  "/blog/categoria/operaciones": "2026-11-07",
+  "/blog/como-elegir-empresa-de-mensajeria-en-panama": "2026-11-07",
+  "/blog/mensajeria-corporativa-tramites-css-mitradel-cheques": "2026-11-07",
+  "/blog/ultima-milla-ecommerce-panama": "2026-11-07",
   "/cobertura": "2026-11-04",
-  "/contacto": "2026-11-06",
-  "/empresas": "2026-11-06",
-  "/llms-full.txt": "2026-11-06",
-  "/llms.txt": "2026-11-06",
-  "/preguntas-frecuentes": "2026-11-06",
-  "/servicios": "2026-11-04",
+  "/contacto": "2026-11-07",
+  "/empresas": "2026-11-07",
+  "/llms-full.txt": "2026-11-07",
+  "/llms.txt": "2026-11-07",
+  "/preguntas-frecuentes": "2026-11-07",
+  "/servicios": "2026-11-07",
   "/servicios/entrega-de-tarjetas-bancarias": "2026-11-04",
   "/servicios/entregas-comercios-ecommerce": "2026-11-04",
-  "/servicios/mensajeria-empresarial": "2026-11-04",
+  "/servicios/mensajeria-corporativa": "2026-11-07",
   "/servicios/traslados-panel-camion": "2026-11-04",
   "/servicios/zappy-business": "2026-11-04",
   "/servicios/zappy-express": "2026-11-04",
@@ -188,6 +188,15 @@ function lastmodFromGit(path) {
       .sort()
       .at(-1);
     return maxDate(latest, newest(STATIC_SOURCES["/blog"]));
+  }
+
+  if (path === "/servicios/mensajeria-corporativa") {
+    return newest([
+      "src/data/mensajeria-corporativa.ts",
+      "src/data/services.ts",
+      "src/pages/servicios/mensajeria-corporativa.astro",
+      "src/lib/schema.ts",
+    ]);
   }
 
   if (path.startsWith("/servicios/") && path !== "/servicios") {

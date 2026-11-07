@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
+    { "source": "/servicios/mensajeria-empresarial", "destination": "/servicios/mensajeria-corporativa", "permanent": true },
     { "source": "/account/my-account", "destination": "/", "permanent": true },
     { "source": "/blank-ncx68", "destination": "/contacto", "permanent": true },
     { "source": "/borrador", "destination": "/", "permanent": true },
@@ -17,7 +18,7 @@
     { "source": "/copia-de-registro", "destination": "/preguntas-frecuentes", "permanent": true },
     { "source": "/copia-de-registro-nuevos-usuarios", "destination": "/contacto", "permanent": true },
     { "source": "/copia-de-servicio-zappy-express", "destination": "/servicios/zappy-express", "permanent": true },
-    { "source": "/copia-de-tarjetas-bancarias", "destination": "/servicios/mensajeria-empresarial", "permanent": true },
+    { "source": "/copia-de-tarjetas-bancarias", "destination": "/servicios/mensajeria-corporativa", "permanent": true },
     { "source": "/copia-de-términos-y-condiciones-zappy", "destination": "/terminos-y-condiciones", "permanent": true },
     { "source": "/copia-de-zappypoints", "destination": "/zappypoints", "permanent": true },
     { "source": "/cotizaciones", "destination": "/contacto", "permanent": true },

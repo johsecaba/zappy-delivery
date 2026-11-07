@@ -2,6 +2,14 @@ import { readFileSync } from "node:fs";
 import { categories } from "../data/blog";
 import { cityZones, interiorCities } from "../data/coverage";
 import { faqs } from "../data/faq";
+import {
+  corporateCta,
+  corporateFaqs,
+  corporateIntroBody,
+  corporateIntroCta,
+  corporatePath,
+  corporateSections,
+} from "../data/mensajeria-corporativa";
 import { services } from "../data/services";
 import { absoluteUrl, homeDescription, site, siteSummary } from "../config/site";
 import { getPublishedPosts, type BlogPost } from "./posts";
@@ -25,6 +33,36 @@ function absolutize(markdown: string): string {
 
 function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
+}
+
+function corporateMarkdown(): string[] {
+  const quote = services.find((service) => service.slug === "mensajeria-corporativa");
+  const quoteUrl = `https://wa.me/${site.whatsappE164}?text=${encodeURIComponent(quote?.whatsappMessage ?? site.whatsappMessage)}`;
+  const lines: string[] = [`${corporateIntroBody} [${corporateIntroCta}](${quoteUrl}).`, ""];
+  for (const section of corporateSections) {
+    lines.push(`## ${section.heading}`, "");
+    for (const paragraph of section.paragraphs ?? []) lines.push(absolutize(paragraph), "");
+    if (section.bullets?.length) {
+      for (const bullet of section.bullets) lines.push(`- ${absolutize(bullet)}`);
+      lines.push("");
+    }
+    if (section.steps?.length) {
+      section.steps.forEach((step, index) => {
+        lines.push(`${index + 1}. ${absolutize(step)}`);
+      });
+      lines.push("");
+    }
+    for (const group of section.groups ?? []) {
+      lines.push(`### ${group.heading}`, "");
+      for (const paragraph of group.paragraphs) lines.push(absolutize(paragraph), "");
+    }
+  }
+  lines.push("## Preguntas frecuentes", "");
+  for (const item of corporateFaqs) {
+    lines.push(`### ${item.question}`, "", item.answer, "");
+  }
+  lines.push(corporateCta, "");
+  return lines;
 }
 
 /**
@@ -54,7 +92,7 @@ export async function renderLlmsTxt(): Promise<string> {
     `- LinkedIn: ${site.social.linkedin}`,
     "- Correo: no publicado en el sitio",
     `- Dirección de calle: no publicada. Solo consta ${site.city}.`,
-    "- Horario: no publicado",
+    `- Horario de la mensajería corporativa: ${site.serviceHours}`,
     `- Misión: ${site.mission}`,
     `- Visión: ${site.vision}`,
   ];
@@ -149,7 +187,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
     "",
     `> ${siteSummary()}`,
     "",
-    `Texto ampliado para asistentes. Repite el contenido publicado de los servicios, las preguntas frecuentes y la cobertura. No agrega tarifas, horarios, dirección de calle ni reseñas que ${site.name} no publica.`,
+    `Texto ampliado para asistentes. Repite el contenido publicado de los servicios, las preguntas frecuentes y la cobertura. No agrega montos de tarifa, dirección de calle ni reseñas que ${site.name} no publica. El horario de la mensajería corporativa es de ${site.serviceHours}`,
     "",
     `- Sitio: ${site.url}`,
     `- Índice: ${absoluteUrl("/llms.txt")}`,
@@ -173,6 +211,10 @@ export async function renderLlmsFullTxt(): Promise<string> {
   ];
 
   for (const service of services) {
+    if (service.slug === "mensajeria-corporativa") {
+      lines.push(`### ${service.h1}`, "", absoluteUrl(corporatePath), "", ...corporateMarkdown());
+      continue;
+    }
     lines.push(
       `### ${service.h1}`,
       "",
@@ -222,7 +264,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
     "",
     absoluteUrl("/contacto"),
     "",
-    `El canal principal es WhatsApp al ${site.whatsappDisplay}. El teléfono de negocio publicado es ${site.phoneDisplay}. No hay correo, dirección de calle ni horario publicados. El formulario del sitio arma el mensaje y abre WhatsApp; no guarda datos en el servidor.`,
+    `El canal principal es WhatsApp al ${site.whatsappDisplay}. El teléfono de negocio publicado es ${site.phoneDisplay}. No hay correo ni dirección de calle publicados. El horario de la mensajería corporativa es de ${site.serviceHours} El formulario del sitio arma el mensaje y abre WhatsApp; no guarda datos en el servidor.`,
     "",
     "## Blog",
     "",

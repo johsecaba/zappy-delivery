@@ -1,0 +1,158 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { getService } from "../../data/services";
+import {
+  corporateCta,
+  corporateFaqs,
+  corporateIntroBody,
+  corporateIntroCta,
+  corporatePath,
+  corporateSections,
+} from "../../data/mensajeria-corporativa";
+import { site, whatsappHref } from "../../config/site";
+import { organizationNode, breadcrumbNode, serviceNode, faqNode, graph } from "../../lib/schema";
+
+const service = getService("mensajeria-corporativa");
+if (!service) {
+  throw new Error("Falta el servicio mensajeria-corporativa.");
+}
+
+type Part = { kind: "text"; text: string } | { kind: "link"; href: string; text: string };
+
+/** Solo enlaces internos escritos como [texto](/ruta) en los datos. */
+function parts(input: string): Part[] {
+  const out: Part[] = [];
+  const re = /\[([^\]]+)\]\((\/[^)\s]+)\)/g;
+  let last = 0;
+  for (const match of input.matchAll(re)) {
+    const index = match.index ?? 0;
+    if (index > last) out.push({ kind: "text", text: input.slice(last, index) });
+    out.push({ kind: "link", text: match[1], href: match[2] });
+    last = index + match[0].length;
+  }
+  if (last < input.length) out.push({ kind: "text", text: input.slice(last) });
+  return out;
+}
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Servicios", path: "/servicios" },
+  { name: service.name },
+];
+
+const jsonLd = graph(
+  organizationNode(),
+  serviceNode(service),
+  faqNode(corporateFaqs, corporatePath),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Servicios", path: "/servicios" },
+    { name: service.name, path: corporatePath },
+  ]),
+);
+---
+
+<Base title={service.title} description={service.description} jsonLd={jsonLd}>
+  <article>
+    <header class="band band-navy page-hero">
+      <div class="wrap">
+        <Breadcrumbs items={crumbs} />
+        <p class="eyebrow">{service.eyebrow}</p>
+        <h1 class="h1">{service.h1}</h1>
+        <p class="lede">
+          {corporateIntroBody}{" "}
+          <a href={whatsappHref(service.whatsappMessage)}>{corporateIntroCta}.</a>
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-cta" href={whatsappHref(service.whatsappMessage)}>
+            WhatsApp {site.whatsappDisplay}
+          </a>
+          <a class="btn btn-white" href={`tel:${site.phoneE164}`}>Llamar al {site.phoneDisplay}</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="band band-white section">
+      <div class="wrap prose">
+        {
+          corporateSections.map((section) => (
+            <>
+              <h2 id={section.id}>{section.heading}</h2>
+              {section.paragraphs?.map((paragraph) => (
+                <p>
+                  {parts(paragraph).map((part) =>
+                    part.kind === "link" ? <a href={part.href}>{part.text}</a> : part.text,
+                  )}
+                </p>
+              ))}
+              {section.bullets && (
+                <ul>
+                  {section.bullets.map((bullet) => (
+                    <li>
+                      {parts(bullet).map((part) =>
+                        part.kind === "link" ? <a href={part.href}>{part.text}</a> : part.text,
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {section.steps && (
+                <ol>
+                  {section.steps.map((step) => (
+                    <li>
+                      {parts(step).map((part) =>
+                        part.kind === "link" ? <a href={part.href}>{part.text}</a> : part.text,
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              )}
+              {section.groups?.map((group) => (
+                <>
+                  <h3>{group.heading}</h3>
+                  {group.paragraphs.map((paragraph) => (
+                    <p>
+                      {parts(paragraph).map((part) =>
+                        part.kind === "link" ? <a href={part.href}>{part.text}</a> : part.text,
+                      )}
+                    </p>
+                  ))}
+                </>
+              ))}
+            </>
+          ))
+        }
+      </div>
+    </div>
+
+    <section class="band band-linen section" id="faq" aria-labelledby="faq-titulo">
+      <div class="wrap">
+        <h2 class="h2" id="faq-titulo">Preguntas frecuentes</h2>
+        <div class="stack" style="margin-top: 18px;">
+          {
+            corporateFaqs.map((item) => (
+              <article class="point">
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="band band-sky section" aria-labelledby="pedir">
+      <div class="wrap" style="display: grid; gap: 18px;">
+        <h2 class="h2" id="pedir">Pida la cotización</h2>
+        <p class="lede">{corporateCta}</p>
+        <div class="cta-row">
+          <a class="btn btn-cta" href={whatsappHref(service.whatsappMessage)}>
+            WhatsApp {site.whatsappDisplay}
+          </a>
+          <a class="btn btn-white" href="/contacto">Página de contacto</a>
+        </div>
+      </div>
+    </section>
+  </article>
+</Base>
