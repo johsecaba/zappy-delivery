@@ -1,7 +1,7 @@
 /**
  * Genera AVIF y WebP responsive desde los JPG de marca.
  * Uso: node scripts/optimize-illustrations.mjs <dir-con-jpg>
- * Los nombres de salida son fijos: credit-cards, fragile, wine, art, medicine.
+ * Los nombres de salida son fijos y coinciden con Illustration.astro.
  */
 import { mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
@@ -19,6 +19,12 @@ const names = {
   insurance: "insurance",
   "home-hero": "home-hero",
   "corporativa-hero": "corporativa-hero",
+  "prod-florerias": "florerias",
+  "prod-cosmetica": "cosmetica",
+  "prod-decoracion": "decoracion",
+  "prod-boutiques": "boutiques",
+  "prod-gourmet": "gourmet",
+  "prod-licores": "licores",
 };
 
 const sourceDir = process.argv[2];

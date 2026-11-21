@@ -13,7 +13,13 @@ export type LandingImage = {
     | "real-estate"
     | "insurance"
     | "home-hero"
-    | "corporativa-hero";
+    | "corporativa-hero"
+    | "florerias"
+    | "cosmetica"
+    | "decoracion"
+    | "boutiques"
+    | "gourmet"
+    | "licores";
   alt: string;
   loading?: "eager" | "lazy";
 };
@@ -38,6 +44,10 @@ export type StepBlock = {
   body: string;
 };
 
+export type TypeBlock = TextBlock & {
+  image?: LandingImage;
+};
+
 export type LandingSection =
   | { type: "intro"; heading: string; paragraphs: string[] }
   | {
@@ -58,7 +68,7 @@ export type LandingSection =
       images?: LandingImage[];
     }
   | { type: "steps"; heading: string; steps: StepBlock[]; cta?: Cta }
-  | { type: "types"; heading: string; items: TextBlock[]; note?: string }
+  | { type: "types"; heading: string; items: TypeBlock[]; note?: string }
   | { type: "callout"; heading: string; paragraphs: string[]; cta: Cta; image?: LandingImage }
   | { type: "faq"; heading: string; items: FaqItem[] }
   | { type: "close"; heading: string; paragraphs: string[]; primary: Cta; secondary: Cta };
@@ -689,26 +699,50 @@ export const landings: Landing[] = [
           {
             title: "Florerías y tiendas de regalos",
             body: "Arreglos, cajas de regalo y detalles que requieren atención a su forma, posición y presentación.",
+            image: {
+              name: "florerias",
+              alt: "Ramo de flores naranjas y blancas envuelto en papel azul, junto a una caja de regalo con lazo naranja y una planta en maceta.",
+            },
           },
           {
             title: "Cosmética, perfumería y cuidado personal",
             body: "Productos con envases delicados, sets y estuches cuya presentación forma parte de la compra.",
+            image: {
+              name: "cosmetica",
+              alt: "Frascos, cremas, labial y un estuche de regalo de cosmética y cuidado personal, entre dos plantas en maceta.",
+            },
           },
           {
             title: "Decoración, artesanías y artículos para el hogar",
             body: "Piezas que necesitan protección y condiciones de transporte acordes con sus materiales y dimensiones.",
+            image: {
+              name: "decoracion",
+              alt: "Jarrón, lámpara, canasta tejida, cuenco y marco, artículos de decoración y artesanía para el hogar.",
+            },
           },
           {
             title: "Boutiques, accesorios y marcas de autor",
             body: "Pedidos preparados con empaques cuidados y una experiencia de entrega que debe acompañar la identidad del negocio.",
+            image: {
+              name: "boutiques",
+              alt: "Bolsa de compras, bolso, lentes de sol, reloj y una caja de regalo, accesorios de una boutique.",
+            },
           },
           {
             title: "Tiendas gourmet y repostería",
             body: "Productos cuya estabilidad y presentación requieren una evaluación previa del empaque y del vehículo.",
+            image: {
+              name: "gourmet",
+              alt: "Caja de cupcakes, pastel decorado, macarons y un frasco de mermelada de una tienda gourmet.",
+            },
           },
           {
             title: "Licorerías y tiendas de vinos y destilados",
             body: "Entregas de botellas, estuches y sets de regalo que requieren cuidado por su fragilidad, peso y presentación.",
+            image: {
+              name: "licores",
+              alt: "Botellas de vino y destilado, dos copas y un estuche abierto con una botella.",
+            },
           },
         ],
         note: "Los productos perecederos, sensibles a la temperatura o que requieren cadena de frío necesitan una evaluación específica antes de aceptar el servicio.",
