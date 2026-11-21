@@ -1,0 +1,47 @@
+---
+interface Props {
+  name:
+    | "credit-cards"
+    | "fragile"
+    | "wine"
+    | "art"
+    | "medicine"
+    | "legal"
+    | "real-estate"
+    | "insurance"
+    | "home-hero"
+    | "corporativa-hero";
+  alt: string;
+  loading?: "eager" | "lazy";
+  sizes?: string;
+  class?: string;
+}
+
+const {
+  name,
+  alt,
+  loading = "lazy",
+  sizes = "(min-width: 900px) 540px, 100vw",
+  class: className,
+} = Astro.props;
+
+const widths = [480, 768, 1152];
+const src = (width: number, ext: "avif" | "webp") => `/illustrations/${name}-${width}.${ext}`;
+const srcset = (ext: "avif" | "webp") => widths.map((width) => `${src(width, ext)} ${width}w`).join(", ");
+---
+
+<figure class:list={["illu", className]}>
+  <picture>
+    <source type="image/avif" srcset={srcset("avif")} sizes={sizes} />
+    <source type="image/webp" srcset={srcset("webp")} sizes={sizes} />
+    <img
+      src={src(768, "webp")}
+      alt={alt}
+      width="1152"
+      height="864"
+      loading={loading}
+      fetchpriority={loading === "eager" ? "high" : "low"}
+      decoding="async"
+    />
+  </picture>
+</figure>

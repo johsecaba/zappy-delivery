@@ -23,7 +23,7 @@ const jsonLd = graph(
 ---
 
 <Base title={title} description={description} jsonLd={jsonLd}>
-  <section class="band band-navy page-hero">
+  <section class="band band-white page-hero">
     <div class="wrap">
       <Breadcrumbs items={crumbs} />
       <p class="eyebrow">Para operaciones, no para un antojo</p>
@@ -63,12 +63,19 @@ const jsonLd = graph(
         <h2 class="h2">Qué suele contratar una empresa</h2>
         <ul class="feature-list" style="margin-top: 16px;">
           <li>
-            <strong>Tarjetas bancarias</strong>
-            <span>Protocolo, coordinación con el destinatario y cifras publicadas de ese servicio.</span>
+            <strong>Mensajería bancaria</strong>
+            <span>
+              Documentos, cheques y correspondencia entre sucursales.
+              <a href="/servicios/mensajeria-bancaria">Ver mensajería bancaria</a>.
+              La entrega de tarjetas se consulta como una operación específica.
+            </span>
           </li>
           <li>
             <strong>Tienda y e-commerce</strong>
-            <span>Mensajería en moto hasta la puerta del cliente, con foto y avisos.</span>
+            <span>
+              Entregas con cuidado del producto y presentación profesional.
+              <a href="/servicios/entregas-comercios-ecommerce">Ver entregas para comercios</a>.
+            </span>
           </li>
           <li>
             <strong>Oficina</strong>
@@ -80,7 +87,7 @@ const jsonLd = graph(
           </li>
           <li>
             <strong>Bodega</strong>
-            <span>Panel o camión, sucursales y las ciudades del interior que Zappy nombra.</span>
+            <span>Zappy Business mueve muchos bultos a un destino. Si no caben en moto, el traslado puede ir en panel o camión.</span>
           </li>
         </ul>
       </div>

@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import FaqList from "../components/FaqList.astro";
+import Illustration from "../components/Illustration.astro";
 import { homeDescription, site, siteSummary, whatsappHref } from "../config/site";
 import { services } from "../data/services";
 import { homeFaqs } from "../data/faq";
@@ -18,8 +19,6 @@ import logoPerri from "../assets/gallery/cliente-perriropita.jpg";
 const title = site.homeTitle;
 const description = homeDescription();
 
-const fills = ["navy", "sky", "white", "sky", "white", "navy"] as const;
-
 const logos = [
   { src: logoHechizo, alt: "Logotipo de Hechizo de Luna Pijamas, en la galería de entregas de Zappy" },
   { src: logoDecofruta, alt: "Logotipo de Decofruta Ramos Frutales, en la galería de entregas de Zappy" },
@@ -32,8 +31,14 @@ const latestPosts = (await getPublishedPosts()).slice(0, 3);
 const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
 ---
 
-<Base title={title} description={description} jsonLd={jsonLd}>
-  <section class="band band-navy hero">
+<Base
+  title={title}
+  description={description}
+  jsonLd={jsonLd}
+  image="/og/home.png"
+  imageAlt="Mensajería en moto para empresas en Panamá. Un mensajero recorre la ciudad frente al logotipo de Zappy Delivery."
+>
+  <section class="band band-white hero">
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow">Courier B2B · {site.city}</p>
@@ -41,7 +46,7 @@ const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
         <p class="lede">{siteSummary()}</p>
         <div class="cta-row">
           <a class="btn btn-cta" href={whatsappHref()}>Escribir por WhatsApp</a>
-          <a class="btn btn-white" href="/servicios">Ver servicios</a>
+          <a class="btn btn-ghost" href="/servicios">Ver servicios</a>
         </div>
         <ul class="tag-row">
           <li>Mensajería en moto</li>
@@ -52,64 +57,12 @@ const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
           <li>Ahorro por volumen</li>
         </ul>
       </div>
-      <div class="hero-cluster" aria-hidden="true">
-        <div class="mock">
-          <div class="mock-top">
-            <div>
-              <p class="mock-kicker">Ejemplo de tablero</p>
-              <h2>En ruta</h2>
-            </div>
-            <span class="tag">Demo</span>
-          </div>
-          <p style="margin-top: 8px;">Guía de muestra · Ciudad de Panamá</p>
-          <ol class="steps">
-            <li class="done"><span class="dot"></span> Recolectado</li>
-            <li class="done"><span class="dot"></span> En ruta</li>
-            <li><span class="dot"></span> Evidencia fotográfica</li>
-          </ol>
-          <div class="track"><span></span></div>
-        </div>
-        <div class="mini-stats">
-          <article class="mini mini-orange">
-            <p class="stat">97,91%</p>
-            <p>de las tarjetas, en menos de 96 horas</p>
-          </article>
-          <article class="mini mini-sky">
-            <p class="stat">9/10</p>
-            <p>califican bueno o muy bueno</p>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band-linen section" aria-labelledby="prueba">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 class="h2" id="prueba">Cifras publicadas de la entrega de tarjetas.</h2>
-        <p class="lede">
-          Estos números están en la página de tarjetas bancarias de Zappy. No los
-          presentamos como promesa del resto de servicios.
-        </p>
-      </div>
-      <div class="proof">
-        <article class="stat-card">
-          <p class="stat">97,91%</p>
-          <p>de las entregas de tarjetas se hace en menos de 96 horas.</p>
-        </article>
-        <article class="stat-card">
-          <p class="stat">9/10</p>
-          <p>clientes lo califican bueno o muy bueno, en encuestas semanales.</p>
-        </article>
-        <article class="stat-card">
-          <p class="stat">Foto</p>
-          <p>Evidencia de recolecta y entrega en el servicio a comercios.</p>
-        </article>
-        <article class="stat-card">
-          <p class="stat">Tablero</p>
-          <p>El usuario monitorea la operación desde un dashboard.</p>
-        </article>
-      </div>
+      <Illustration
+        name="home-hero"
+        alt="Mensajero en moto recorre la ciudad con una caja de entrega, siguiendo una ruta entre documentos, paquetes y puntos de destino."
+        loading="eager"
+        sizes="(min-width: 960px) 520px, 100vw"
+      />
     </div>
   </section>
 
@@ -118,37 +71,24 @@ const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
       <div class="section-head">
         <h2 class="h2" id="servicios">Servicios de mensajería y última milla.</h2>
         <p>
-          El servicio de mensajería en Panamá se parte por la carga. En la ciudad
-          es mensajería en moto. Si el bulto no entra, o la ruta va al interior,
-          entra el panel o el camión. Para documentos y diligencias de oficina, vea la{" "}
+          Para documentos y diligencias de oficina, vea la{" "}
           <a href="/servicios/mensajeria-corporativa">mensajería corporativa</a>.
+          Bancos y financieras tienen su página de{" "}
+          <a href="/servicios/mensajeria-bancaria">mensajería bancaria</a>.
+          Tiendas y e-commerce, las{" "}
+          <a href="/servicios/entregas-comercios-ecommerce">entregas para comercios</a>.
         </p>
       </div>
-      <div class="bento">
+      <div class="card-grid cols-3">
         {
-          services.map((service, index) => (
-            <a
-              class:list={[
-                "card",
-                `card-${fills[index]}`,
-                index === 0 && "tall card-lg",
-                index === 5 && "span-2",
-              ]}
-              href={`/servicios/${service.slug}`}
-            >
-              <span class="kicker">0{index + 1}</span>
-              <h3>{service.name}</h3>
+          services.map((service) => (
+            <a class="card card-white" href={`/servicios/${service.slug}`}>
+              <h3>{service.menuLabel}</h3>
               <p>{service.summary}</p>
               <span class="more">Ver el servicio</span>
             </a>
           ))
         }
-        <a class="card card-orange card-lg" href={whatsappHref()}>
-          <span class="kicker">Contacto</span>
-          <h3>Cuéntenos la ruta.</h3>
-          <p>WhatsApp al {site.whatsappDisplay}. Sin descarga de app.</p>
-          <span class="more">Abrir WhatsApp</span>
-        </a>
       </div>
     </div>
   </section>
@@ -211,13 +151,13 @@ const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
     </div>
   </section>
 
-  <section class="band band-navy section" aria-labelledby="cobertura">
+  <section class="band band-mist section" aria-labelledby="cobertura">
     <div class="wrap">
       <div class="section-head">
         <h2 class="h2" id="cobertura">Cobertura en la ciudad y envíos al interior.</h2>
         <p class="lede">
           La mensajería en moto cubre la Ciudad de Panamá y sus afueras. El
-          interior va por traslados en panel o camión.
+          interior puede ir en panel o camión.
         </p>
       </div>
       <div class="zone-grid">
@@ -230,12 +170,11 @@ const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
           ))
         }
       </div>
-      <article class="card card-orange card-lg" style="margin-top: 16px;">
+      <article class="card card-white card-lg" style="margin-top: 16px;">
         <h3>Rutas nombradas hacia el interior</h3>
         <p>
-          Chitré, Las Tablas, Santiago, David, Aguadulce y Penonomé. Envíos
-          nacionales Panamá–David y al resto de esas ciudades, en el servicio de
-          panel o camión.
+          Chitré, Las Tablas, Santiago, David, Aguadulce y Penonomé. Esas ciudades
+          se confirman por WhatsApp cuando la carga sale de la ciudad.
         </p>
         <a class="btn btn-white" href="/cobertura" style="margin-top: 8px; align-self: flex-start;">
           Ver cobertura
@@ -278,8 +217,8 @@ const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
       <h2 class="h2">¿Listo para mover la carga?</h2>
       <p class="lede">
         Escriba por WhatsApp qué despacha, desde dónde y hacia qué zona. Le
-        responden con la operación que corresponde: tarjetas, mensajería,
-        comercio o camión.
+        responden con la operación que corresponde: mensajería corporativa,
+        bancaria, comercio, Express o Business.
       </p>
       <div class="cta-row">
         <a class="btn btn-cta" href={whatsappHref()}>WhatsApp {site.whatsappDisplay}</a>

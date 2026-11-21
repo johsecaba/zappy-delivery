@@ -1,0 +1,8 @@
+---
+import ServiceLanding from "../../components/ServiceLanding.astro";
+import { getLanding } from "../../data/landings";
+
+const landing = getLanding("mensajeria-bancaria");
+---
+
+<ServiceLanding landing={landing} />

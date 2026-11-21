@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import logo from "../assets/brand/logo-zappy.png";
 import { whatsappHref } from "../config/site";
-import { services } from "../data/services";
+import { servicesInGroup } from "../data/services";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
@@ -12,6 +12,11 @@ const links = [
   { href: "/zappypoints", label: "Puntos" },
   { href: "/blog", label: "Blog" },
   { href: "/contacto", label: "Contacto" },
+];
+
+const groups = [
+  { id: "mega-mensajeria", label: "Mensajería", items: servicesInGroup("mensajeria") },
+  { id: "mega-productos", label: "Zappy Express y Business", items: servicesInGroup("productos") },
 ];
 
 function current(href: string) {
@@ -76,18 +81,26 @@ function current(href: string) {
               </button>
             </div>
             <div id="services-menu" class="nav-dd-panel" data-services-panel hidden>
-              <div class="nav-dd-grid">
+              <div class="nav-mega">
                 {
-                  services.map((service, index) => (
-                    <a
-                      class="nav-service"
-                      href={`/servicios/${service.slug}`}
-                      aria-current={path === `/servicios/${service.slug}` ? "page" : undefined}
-                    >
-                      <span class="nav-service-kicker">0{index + 1}</span>
-                      <strong>{service.name}</strong>
-                      <p>{service.summary}</p>
-                    </a>
+                  groups.map((group) => (
+                    <div>
+                      <p class="nav-mega-label" id={group.id}>{group.label}</p>
+                      <ul class="nav-mega-list" aria-labelledby={group.id}>
+                        {group.items.map((service) => (
+                          <li>
+                            <a
+                              class="nav-service"
+                              href={`/servicios/${service.slug}`}
+                              aria-current={path === `/servicios/${service.slug}` ? "page" : undefined}
+                            >
+                              <strong>{service.menuLabel}</strong>
+                              <span>{service.summary}</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))
                 }
               </div>
@@ -105,7 +118,7 @@ function current(href: string) {
           }
         </div>
       </nav>
-      <a class="btn btn-cta btn-sm" href={whatsappHref()}>WhatsApp</a>
+      <a class="btn btn-white btn-sm" href={whatsappHref()}>WhatsApp</a>
     </div>
   </div>
 </div>
@@ -157,7 +170,7 @@ function current(href: string) {
     });
   }
 
-  if (dropdown instanceof HTMLElement && servicesLink instanceof HTMLAnchorElement && servicesToggle instanceof HTMLButtonElement) {
+  if (dropdown instanceof HTMLElement && servicesLink instanceof HTMLAnchorElement && servicesToggle instanceof HTMLButtonElement && servicesPanel instanceof HTMLElement) {
     dropdown.addEventListener("pointerenter", (event) => {
       if (!desktop() || event.pointerType === "touch") return;
       cancelServicesClose();
@@ -195,6 +208,18 @@ function current(href: string) {
       const next = event.relatedTarget;
       if (next instanceof Node && dropdown.contains(next)) return;
       scheduleServicesClose();
+    });
+
+    dropdown.addEventListener("keydown", (event) => {
+      if (!servicesOpen()) return;
+      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+      const items = [...servicesPanel.querySelectorAll("a")];
+      if (items.length === 0) return;
+      const index = items.indexOf(document.activeElement as HTMLAnchorElement);
+      event.preventDefault();
+      const delta = event.key === "ArrowDown" ? 1 : -1;
+      const next = items[(index + delta + items.length) % items.length];
+      if (next instanceof HTMLElement) next.focus();
     });
   }
 

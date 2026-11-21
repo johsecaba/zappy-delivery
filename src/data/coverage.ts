@@ -27,7 +27,7 @@ export const cityZones = [
 ] as const;
 
 /**
- * Ciudades del interior nombradas en la página de traslados en panel o camión.
+ * Ciudades del interior que el sitio nombra para rutas en panel o camión.
  * El sitio escribe «Chitre»; aquí se usa la grafía Chitré.
  */
 export const interiorCities = [

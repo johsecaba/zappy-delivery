@@ -19,7 +19,7 @@ const shapes = [
   {
     zone: zones.norte,
     tone: "norte",
-    ink: "ink-dark",
+    ink: "ink-light",
     d: "M294 30 L524 42 L552 196 L430 184 L322 160 Z",
     label: { x: 420, y: 108 },
   },
@@ -52,13 +52,10 @@ const shapes = [
       <desc id="coverage-map-desc">
         Cuatro zonas alrededor de la bahía y del canal: Panamá Oeste al oeste del canal, Panamá Centro en el núcleo urbano junto a la costa, Panamá Norte hacia el norte y Panamá Este hacia el este. Cada zona lleva a su descripción.
       </desc>
-      <rect width="800" height="520" fill="#c5e6f6" />
+      <rect class="map-water" width="800" height="520" />
       <path
+        class="map-canal"
         d="M208 34 L294 30 L322 160 L352 376 L268 356 L236 158 Z"
-        fill="#9fd4ee"
-        stroke="#000"
-        stroke-width="3"
-        stroke-linejoin="round"
         vector-effect="non-scaling-stroke"
         aria-hidden="true"
       />
@@ -70,7 +67,7 @@ const shapes = [
             aria-label={`${shape.zone.name}. Ir a la descripción de la zona.`}
           >
             <path class={`tone-${shape.tone}`} d={shape.d} />
-            <text class={shape.ink} text-anchor="middle" font-size="32" font-weight="800" aria-hidden="true">
+            <text class={shape.ink} text-anchor="middle" font-size="32" font-weight="500" aria-hidden="true">
               <tspan x={shape.label.x} y={shape.label.y}>Panamá</tspan>
               <tspan x={shape.label.x} dy="36">{shape.zone.name.replace("Panamá ", "")}</tspan>
             </text>

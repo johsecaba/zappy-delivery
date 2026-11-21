@@ -7,7 +7,7 @@ import { organizationNode, breadcrumbNode, serviceNode, graph } from "../../lib/
 
 export function getStaticPaths() {
   return services
-    .filter((service) => service.slug !== "mensajeria-corporativa")
+    .filter((service) => !service.dedicated)
     .map((service) => ({
       params: { slug: service.slug },
       props: { service },
@@ -32,7 +32,7 @@ const jsonLd = graph(
 ---
 
 <Base title={service.title} description={service.description} jsonLd={jsonLd}>
-  <section class="band band-navy page-hero">
+  <section class="band band-white page-hero">
     <div class="wrap">
       <Breadcrumbs items={crumbs} />
       <p class="eyebrow">{service.eyebrow}</p>

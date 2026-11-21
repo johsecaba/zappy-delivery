@@ -141,11 +141,10 @@ const FALLBACK = {
   "/llms-full.txt": "2026-11-07",
   "/llms.txt": "2026-11-07",
   "/preguntas-frecuentes": "2026-11-07",
-  "/servicios": "2026-11-07",
-  "/servicios/entrega-de-tarjetas-bancarias": "2026-11-04",
-  "/servicios/entregas-comercios-ecommerce": "2026-11-04",
-  "/servicios/mensajeria-corporativa": "2026-11-07",
-  "/servicios/traslados-panel-camion": "2026-11-04",
+  "/servicios": "2026-11-21",
+  "/servicios/entregas-comercios-ecommerce": "2026-11-21",
+  "/servicios/mensajeria-bancaria": "2026-11-21",
+  "/servicios/mensajeria-corporativa": "2026-11-21",
   "/servicios/zappy-business": "2026-11-04",
   "/servicios/zappy-express": "2026-11-04",
   "/terminos-y-condiciones": "2026-11-04",
@@ -190,11 +189,15 @@ function lastmodFromGit(path) {
     return maxDate(latest, newest(STATIC_SOURCES["/blog"]));
   }
 
-  if (path === "/servicios/mensajeria-corporativa") {
+  if (
+    path === "/servicios/mensajeria-corporativa" ||
+    path === "/servicios/mensajeria-bancaria" ||
+    path === "/servicios/entregas-comercios-ecommerce"
+  ) {
     return newest([
-      "src/data/mensajeria-corporativa.ts",
+      "src/data/landings.ts",
       "src/data/services.ts",
-      "src/pages/servicios/mensajeria-corporativa.astro",
+      "src/components/ServiceLanding.astro",
       "src/lib/schema.ts",
     ]);
   }

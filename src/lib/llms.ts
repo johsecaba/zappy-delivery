@@ -2,8 +2,10 @@ import { readFileSync } from "node:fs";
 import { categories } from "../data/blog";
 import { cityZones, interiorCities } from "../data/coverage";
 import { faqs } from "../data/faq";
+import { landings } from "../data/landings";
 import { services } from "../data/services";
 import { absoluteUrl, homeDescription, site, siteSummary } from "../config/site";
+import { isNoindexPath } from "../config/indexing.mjs";
 import { getPublishedPosts, type BlogPost } from "./posts";
 
 function link(label: string, path: string, note: string): string {
@@ -27,9 +29,47 @@ function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
-/** La página nueva no se anuncia a buscadores ni a asistentes. El resto de servicios sí. */
+/** Las rutas en noindex no se anuncian. Con la lista vacía, las tres landings sí. */
 function listedServices() {
-  return services.filter((service) => service.slug !== "mensajeria-corporativa");
+  return services.filter((service) => !isNoindexPath(`/servicios/${service.slug}`));
+}
+
+function landingLines(slug: string): string[] {
+  const landing = landings.find((item) => item.service.slug === slug);
+  if (!landing) return [];
+  const lines: string[] = [];
+  for (const section of landing.sections) {
+    if (section.type === "faq") {
+      lines.push(`## ${section.heading}`, "");
+      for (const item of section.items) lines.push(`### ${item.question}`, "", item.answer, "");
+      continue;
+    }
+    if (!("heading" in section)) continue;
+    lines.push(`## ${section.heading}`, "");
+    if ("paragraphs" in section && section.paragraphs) {
+      for (const paragraph of section.paragraphs) lines.push(paragraph, "");
+    }
+    if ("description" in section && section.description) lines.push(section.description, "");
+    if (section.type === "cards") {
+      for (const card of section.cards) lines.push(`**${card.title}.** ${card.body}`, "");
+    }
+    if (section.type === "industries") {
+      for (const item of section.items) {
+        lines.push(`### ${item.title}`, "", item.body, "", item.examplesLabel, "");
+        for (const example of item.examples) lines.push(`- ${example}`);
+        lines.push("");
+        if (item.note) lines.push(item.note, "");
+      }
+    }
+    if (section.type === "points" || section.type === "types") {
+      for (const item of section.items) lines.push(`**${item.title}.** ${item.body}`, "");
+    }
+    if (section.type === "steps") {
+      for (const step of section.steps) lines.push(`**${step.title}.** ${step.body}`, "");
+    }
+    if ("note" in section && section.note) lines.push(section.note, "");
+  }
+  return lines;
 }
 
 /**
@@ -38,7 +78,6 @@ function listedServices() {
  */
 export async function renderLlmsTxt(): Promise<string> {
   const posts = await getPublishedPosts();
-  const cards = services.find((service) => service.slug === "entrega-de-tarjetas-bancarias");
   const lines: string[] = [
     `# ${site.name}`,
     "",
@@ -64,13 +103,6 @@ export async function renderLlmsTxt(): Promise<string> {
     `- Visión: ${site.vision}`,
   ];
 
-  if (cards) {
-    const [time, rating] = cards.points;
-    lines.push(
-      `- Cifras publicadas, solo para la entrega de tarjetas bancarias: ${time.body} ${rating.body}`,
-    );
-  }
-
   lines.push(
     "",
     "## Servicios",
@@ -88,7 +120,7 @@ export async function renderLlmsTxt(): Promise<string> {
     link(
       "Servicios",
       "/servicios",
-      "Mensajería en moto en Panamá y traslados en panel o camión: tarjetas, comercios, diligencias, Zappy Express y Zappy Business.",
+      "Mensajería corporativa, bancaria y para comercios, más Zappy Express y Zappy Business.",
     ),
     link(
       "Empresas",
@@ -108,7 +140,7 @@ export async function renderLlmsTxt(): Promise<string> {
     link(
       "Preguntas frecuentes",
       "/preguntas-frecuentes",
-      "Cobertura, tarjetas bancarias, envíos al interior, Zappy Express, ZappyPoints, seguro y contacto.",
+      "Cobertura, mensajería, envíos al interior, Zappy Express, ZappyPoints, seguro y contacto.",
     ),
     link(
       "Blog",
@@ -189,6 +221,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
     for (const point of service.points) {
       lines.push(`**${point.title}.** ${point.body}`, "");
     }
+    if (service.dedicated) lines.push(...landingLines(service.slug));
     if (service.extra) lines.push(service.extra, "");
   }
 
@@ -211,7 +244,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
   }
   lines.push(
     "",
-    `Ciudades del interior nombradas en traslados en panel o camión: ${interiorCities.join(", ")}. No hay calendario público de salidas ni tiempo de tránsito.`,
+    `Ciudades del interior que el sitio nombra para rutas en panel o camión: ${interiorCities.join(", ")}. No hay calendario público de salidas ni tiempo de tránsito.`,
     "",
     "## Preguntas frecuentes",
     "",

@@ -24,7 +24,7 @@ const jsonLd = graph(
 ---
 
 <Base title={title} description={description} jsonLd={jsonLd}>
-  <section class="band band-navy page-hero">
+  <section class="band band-white page-hero">
     <div class="wrap">
       <Breadcrumbs items={crumbs} />
       <p class="eyebrow">Contacto</p>
@@ -95,6 +95,18 @@ const jsonLd = graph(
 <script>
   const form = document.querySelector("[data-wa-form]");
   if (form instanceof HTMLFormElement) {
+    const params = new URLSearchParams(window.location.search);
+    const servicioInicial = params.get("servicio");
+    const mensajeInicial = params.get("mensaje");
+    const select = form.querySelector("[name=servicio]");
+    const mensaje = form.querySelector("[name=mensaje]");
+    if (select instanceof HTMLSelectElement && servicioInicial) {
+      const exists = [...select.options].some((option) => option.value === servicioInicial);
+      if (exists) select.value = servicioInicial;
+    }
+    if (mensaje instanceof HTMLTextAreaElement && mensajeInicial) {
+      mensaje.value = mensajeInicial;
+    }
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       const data = new FormData(form);
