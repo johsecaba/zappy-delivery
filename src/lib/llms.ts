@@ -27,6 +27,11 @@ function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
+/** La página nueva no se anuncia a buscadores ni a asistentes. El resto de servicios sí. */
+function listedServices() {
+  return services.filter((service) => service.slug !== "mensajeria-corporativa");
+}
+
 /**
  * /llms.txt — índice en el formato de https://llmstxt.org
  * H1, cita, datos y secciones de enlaces con una línea de descripción.
@@ -54,7 +59,7 @@ export async function renderLlmsTxt(): Promise<string> {
     `- LinkedIn: ${site.social.linkedin}`,
     "- Correo: no publicado en el sitio",
     `- Dirección de calle: no publicada. Solo consta ${site.city}.`,
-    "- Horario: no publicado",
+    `- Horario de la mensajería corporativa: ${site.serviceHours}`,
     `- Misión: ${site.mission}`,
     `- Visión: ${site.vision}`,
   ];
@@ -70,7 +75,7 @@ export async function renderLlmsTxt(): Promise<string> {
     "",
     "## Servicios",
     "",
-    ...services.map((service) => link(service.name, `/servicios/${service.slug}`, service.summary)),
+    ...listedServices().map((service) => link(service.name, `/servicios/${service.slug}`, service.summary)),
     link(
       "ZappyPoints",
       "/zappypoints",
@@ -149,7 +154,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
     "",
     `> ${siteSummary()}`,
     "",
-    `Texto ampliado para asistentes. Repite el contenido publicado de los servicios, las preguntas frecuentes y la cobertura. No agrega tarifas, horarios, dirección de calle ni reseñas que ${site.name} no publica.`,
+    `Texto ampliado para asistentes. Repite el contenido publicado de los servicios, las preguntas frecuentes y la cobertura. No agrega montos de tarifa, dirección de calle ni reseñas que ${site.name} no publica. El horario de la mensajería corporativa es de ${site.serviceHours}`,
     "",
     `- Sitio: ${site.url}`,
     `- Índice: ${absoluteUrl("/llms.txt")}`,
@@ -172,7 +177,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
     "",
   ];
 
-  for (const service of services) {
+  for (const service of listedServices()) {
     lines.push(
       `### ${service.h1}`,
       "",
@@ -222,7 +227,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
     "",
     absoluteUrl("/contacto"),
     "",
-    `El canal principal es WhatsApp al ${site.whatsappDisplay}. El teléfono de negocio publicado es ${site.phoneDisplay}. No hay correo, dirección de calle ni horario publicados. El formulario del sitio arma el mensaje y abre WhatsApp; no guarda datos en el servidor.`,
+    `El canal principal es WhatsApp al ${site.whatsappDisplay}. El teléfono de negocio publicado es ${site.phoneDisplay}. No hay correo ni dirección de calle publicados. El horario de la mensajería corporativa es de ${site.serviceHours} El formulario del sitio arma el mensaje y abre WhatsApp; no guarda datos en el servidor.`,
     "",
     "## Blog",
     "",

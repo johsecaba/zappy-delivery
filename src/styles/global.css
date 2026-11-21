@@ -888,6 +888,12 @@ ol {
   margin-top: 16px;
 }
 
+.page-hero .lede a {
+  color: inherit;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
 .point-grid {
   display: grid;
   gap: 16px;

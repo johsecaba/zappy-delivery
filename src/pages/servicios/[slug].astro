@@ -6,10 +6,12 @@ import { site, whatsappHref } from "../../config/site";
 import { organizationNode, breadcrumbNode, serviceNode, graph } from "../../lib/schema";
 
 export function getStaticPaths() {
-  return services.map((service) => ({
-    params: { slug: service.slug },
-    props: { service },
-  }));
+  return services
+    .filter((service) => service.slug !== "mensajeria-corporativa")
+    .map((service) => ({
+      params: { slug: service.slug },
+      props: { service },
+    }));
 }
 
 const { service } = Astro.props;

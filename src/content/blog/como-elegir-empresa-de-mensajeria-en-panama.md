@@ -2,6 +2,7 @@
 title: "Cómo elegir una empresa de mensajería en Panamá"
 description: "Criterios para contratar mensajería empresarial en Panamá. Cobertura por zona, evidencia, seguro y la diferencia entre tarjetas, documentos y camión."
 pubDate: 2026-11-04
+updatedDate: 2026-11-07
 category: guias
 image: /blog/banners/como-elegir-empresa-de-mensajeria-en-panama.png
 imageAlt: "Banner del artículo «Cómo elegir una empresa de mensajería en Panamá»: logotipo de Zappy Delivery y una moto geométrica de mensajería, en azul marino, celeste y naranja."
@@ -13,7 +14,7 @@ Contratar mensajería para una empresa no es lo mismo que pedir comida. Una tarj
 
 Antes de pedir «una tarifa de mensajería», describa la carga:
 
-- Documentos, cheques o trámites en la CSS y el Mitradel. Eso es [mensajería empresarial](/servicios/mensajeria-empresarial): a menudo el papel tiene que volver.
+- Documentos, cheques o trámites en la CSS y el Mitradel. Eso es [mensajería corporativa](/servicios/mensajeria-corporativa): a menudo el papel tiene que volver.
 - Pedidos de una tienda o un e-commerce, de la bodega a la puerta del cliente. Eso es [entrega a comercios](/servicios/entregas-comercios-ecommerce).
 - Plásticos de un banco, con protocolo y coordinación con el titular. Eso es [entrega de tarjetas bancarias](/servicios/entrega-de-tarjetas-bancarias).
 - Volumen que no cabe en la mensajería en moto, o una ruta fuera de la ciudad. En Zappy eso es [panel o camión](/servicios/traslados-panel-camion). Tarjetas, documentos y pedidos de tienda en la ciudad salen en moto.

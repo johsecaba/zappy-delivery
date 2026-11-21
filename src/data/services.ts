@@ -1,3 +1,6 @@
+import { site } from "../config/site";
+import { corporateDescription, corporateIntro, corporateTitle } from "./mensajeria-corporativa";
+
 export type ServicePoint = {
   title: string;
   body: string;
@@ -102,40 +105,38 @@ export const services: Service[] = [
       "Hola, quiero cotizar entregas para mi comercio o e-commerce con Zappy Delivery.",
   },
   {
-    slug: "mensajeria-empresarial",
-    name: "Mensajería empresarial",
-    menuLabel: "Mensajería empresarial",
-    h1: "Mensajería empresarial en moto en Panamá",
-    title: "Mensajería empresarial en moto en Panamá | Zappy",
-    description:
-      "Mensajería en moto para empresas en Panamá: documentos, cheques, pagos en la CSS, trámites del Mitradel y retorno de papelería.",
-    eyebrow: "Courier en moto",
+    slug: "mensajeria-corporativa",
+    name: "Mensajería corporativa",
+    menuLabel: "Mensajería corporativa",
+    h1: "Mensajería corporativa en Panamá",
+    title: corporateTitle,
+    description: corporateDescription,
+    eyebrow: "Mensajería en moto",
     summary:
-      "Diligencias en moto que no pueden ir en un sobre anónimo: documentos, cheques y trámites públicos.",
-    intro:
-      "Las diligencias urbanas salen en moto. El servicio cubre el seguimiento de la entrega, atención personalizada y conductores identificados. Sirve para papelería que tiene que salir y, a menudo, volver.",
+      `Documentos, cheques y diligencias en moto en toda la Ciudad de Panamá. Horario de ${site.serviceHours}`,
+    intro: corporateIntro,
     points: [
       {
         title: "Documentos de ida y vuelta",
-        body: "Retiro de documentos para retorno a la oficina, manejo seguro y resguardo de la documentación.",
+        body: "Retiro en un punto y retorno a la oficina. El resguardo se acuerda antes de despachar.",
       },
       {
-        title: "Cheques",
-        body: "Cobro de cheques en clientes, entrega de cheques a proveedores y entrega de estados de cuenta.",
+        title: "Cheques y trámites",
+        body: "Cheques, estados de cuenta, pagos en la CSS, certificación en bancos y documentos al Mitradel.",
       },
       {
-        title: "Trámites públicos",
-        body: "Pagos en la Caja de Seguro Social, certificación de cheques en los bancos y entrega de documentos al Mitradel.",
+        title: "Ciudad y horario",
+        body: `Toda la Ciudad de Panamá, en moto, ${site.serviceHours}`,
       },
       {
-        title: "Seguimiento",
-        body: "Seguimiento en todo el proceso de entrega.",
+        title: "Cotización según volumen",
+        body: "No hay montos en la página. La tarifa se confirma por WhatsApp según zona y volumen.",
       },
     ],
     extra:
-      "Los términos publicados advierten que la empresa no se hace responsable por la pérdida de dinero, cheques, joyas o valores al portador. Conviene acordar el manejo de esos documentos antes de despacharlos.",
+      "Los términos dicen que la empresa no responde por la pérdida de dinero, cheques, joyas o valores al portador. Conviene acordar ese manejo antes de despachar.",
     whatsappMessage:
-      "Hola, quiero información sobre mensajería empresarial: documentos, cheques o trámites en CSS y Mitradel.",
+      "Hola, quiero cotizar mensajería corporativa para mi empresa en Ciudad de Panamá.",
   },
   {
     slug: "traslados-panel-camion",

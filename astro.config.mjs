@@ -11,7 +11,10 @@ export default defineConfig({
   integrations: [
     sitemap({
       customPages: [`${site}/llms.txt`, `${site}/llms-full.txt`],
-      filter: (page) => !page.includes("/404") && !page.endsWith("/robots.txt"),
+      filter: (page) =>
+        !page.includes("/404") &&
+        !page.endsWith("/robots.txt") &&
+        !page.endsWith("/servicios/mensajeria-corporativa"),
       serialize(item) {
         const lastmod = lastmodFor(item.url);
         if (lastmod) item.lastmod = lastmod;
