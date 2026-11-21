@@ -2,7 +2,7 @@
 title: "Cómo elegir una empresa de mensajería en Panamá"
 description: "Criterios para contratar mensajería empresarial en Panamá. Cobertura por zona, evidencia, seguro y la diferencia entre tarjetas, documentos y camión."
 pubDate: 2026-11-04
-updatedDate: 2026-11-07
+updatedDate: 2026-11-21
 category: guias
 image: /blog/banners/como-elegir-empresa-de-mensajeria-en-panama.png
 imageAlt: "Banner del artículo «Cómo elegir una empresa de mensajería en Panamá»: logotipo de Zappy Delivery y una moto geométrica de mensajería, en azul marino, celeste y naranja."
@@ -16,8 +16,8 @@ Antes de pedir «una tarifa de mensajería», describa la carga:
 
 - Documentos, cheques o trámites en la CSS y el Mitradel. Eso es [mensajería corporativa](/servicios/mensajeria-corporativa): a menudo el papel tiene que volver.
 - Pedidos de una tienda o un e-commerce, de la bodega a la puerta del cliente. Eso es [entrega a comercios](/servicios/entregas-comercios-ecommerce).
-- Plásticos de un banco, con protocolo y coordinación con el titular. Eso es [entrega de tarjetas bancarias](/servicios/entrega-de-tarjetas-bancarias).
-- Volumen que no cabe en la mensajería en moto, o una ruta fuera de la ciudad. En Zappy eso es [panel o camión](/servicios/traslados-panel-camion). Tarjetas, documentos y pedidos de tienda en la ciudad salen en moto.
+- Documentos, cheques y correspondencia de un banco. Eso es [mensajería bancaria](/servicios/mensajeria-bancaria). La entrega de tarjetas se consulta como una operación específica.
+- Volumen que no cabe en la mensajería en moto, o una ruta fuera de la ciudad. En Zappy eso puede ir en panel o camión. Las ciudades del interior están en [cobertura](/cobertura). Documentos y pedidos de tienda en la ciudad suelen salir en moto.
 
 Si un proveedor le cotiza todo con la misma frase, pida que separe los cuatro casos.
 
@@ -41,7 +41,7 @@ Los términos de Zappy dicen que, si la entrega falla por dirección equivocada,
 
 «Producto asegurado» no dice hasta cuánto. En los términos de Soluciones Operativas, S.A. la póliza publicada cubre daños hasta 100 dólares, salvo que usted pida un seguro de carga mayor y pague la tarifa. Esa tarifa no está en la web. Tampoco responden por frágil mal embalado, ni por dinero, joyas, metales preciosos, valores al portador o cheques.
 
-Si mueve cheques o tarjetas, pregunte el protocolo aparte del seguro: conductores identificados, retorno de documentos y qué queda por escrito cuando hay una incidencia. En tarjetas, Zappy publica además dos resultados de ese servicio: 97,91 % de las entregas en menos de 96 horas, y 9 de cada 10 clientes que lo califican bueno o muy bueno en encuestas semanales. Pida a cualquier proveedor la definición del reloj y de la muestra. Una cifra de tarjetas no es una promesa de mismo día para un e-commerce.
+Si mueve cheques o tarjetas, pregunte el protocolo aparte del seguro: conductores identificados, retorno de documentos y qué queda por escrito cuando hay una incidencia. Pida a cualquier proveedor la definición del plazo y de la muestra. Una cifra de un servicio no es una promesa de mismo día para un e-commerce.
 
 El efectivo también tiene límite publicado: los conductores de Zappy solo cobran hasta 50 dólares, y hay que avisar el monto antes.
 

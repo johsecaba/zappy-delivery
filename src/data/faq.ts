@@ -16,7 +16,7 @@ export const faqs: FaqItem[] = [
   {
     question: "¿La mensajería en la ciudad es en moto?",
     answer:
-      "Sí. En Panamá, la mensajería urbana de Zappy es en moto: tarjetas bancarias, documentos, comercios y Zappy Express. Cuando la carga no cabe en una moto, o el destino es el interior, el servicio es de panel o camión.",
+      "Sí. En Panamá, la mensajería urbana de Zappy es en moto: documentos, comercios y Zappy Express. Cuando la carga no cabe en una moto, o el destino es el interior, el traslado puede ir en panel o camión.",
   },
   {
     question: "¿Cuál es la cobertura en la Ciudad de Panamá?",
@@ -26,12 +26,12 @@ export const faqs: FaqItem[] = [
   {
     question: "¿Hacen envíos nacionales al interior, por ejemplo a David?",
     answer:
-      "Sí, dentro del servicio de traslados en panel o camión: distribución desde la Ciudad de Panamá hacia el interior o viceversa. Las ciudades que el sitio nombra son Chitré, Las Tablas, Santiago, David, Aguadulce y Penonomé. No publica frecuencia ni tiempo de tránsito de esas rutas.",
+      "Sí. Cuando la ruta va al interior, Zappy la mueve en panel o camión, desde la Ciudad de Panamá o de regreso. Las ciudades que el sitio nombra son Chitré, Las Tablas, Santiago, David, Aguadulce y Penonomé. No publica frecuencia ni tiempo de tránsito de esas rutas.",
   },
   {
     question: "¿Entregan tarjetas bancarias?",
     answer:
-      "Sí. Zappy ofrece entrega de tarjetas bancarias para instituciones y publica dos resultados de ese servicio: el 97,91 % de las entregas se realiza en menos de 96 horas, y 9 de cada 10 clientes lo califican de bueno o muy bueno en encuestas semanales. Esas cifras están en la página de tarjetas; el sitio no las extiende al resto de servicios.",
+      "La entrega de tarjetas se consulta como una operación específica, aparte de la mensajería de documentos y cheques. Escríbanos por WhatsApp al +507 6600-9480 para conocer los procedimientos disponibles para su institución.",
   },
   {
     question: "¿Cómo se comprueba que una entrega se hizo?",

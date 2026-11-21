@@ -2,7 +2,7 @@
 title: "Última milla para negocios en Panamá: qué dejar listo antes de despachar"
 description: "Cómo coordinar delivery para un negocio en Panamá. Direcciones, fotos, avisos, Express frente a Business y lo que un courier no publica en la web."
 pubDate: 2026-11-04
-updatedDate: 2026-11-07
+updatedDate: 2026-11-21
 category: operaciones
 image: /blog/banners/ultima-milla-ecommerce-panama.png
 imageAlt: "Banner del artículo «Última milla para negocios en Panamá»: logotipo de Zappy Delivery y un paquete geométrico, en azul marino, celeste y naranja."
@@ -12,7 +12,7 @@ La última milla es el tramo en el que el paquete ya salió de su bodega y todav
 
 ## La ciudad y el interior no son el mismo despacho
 
-Si el pedido se queda en la Ciudad de Panamá y sus afueras, Zappy lo mueve con mensajería en moto. Las zonas que publica son Centro, Norte, Este y Oeste. Si lo que sale es un documento de oficina y no un pedido de la tienda, el servicio es la [mensajería corporativa](/servicios/mensajeria-corporativa). Si el pedido va a David, Chitré, Santiago, Las Tablas, Aguadulce o Penonomé, ya no es la ruta en moto: es un [traslado al interior](/servicios/traslados-panel-camion). No prometa al cliente de la tienda el mismo plazo de la ciudad. Zappy no publica ese plazo. El 97,91 % en menos de 96 horas es una cifra de tarjetas bancarias, no de e-commerce.
+Si el pedido se queda en la Ciudad de Panamá y sus afueras, Zappy lo mueve con mensajería en moto. Las zonas que publica son Centro, Norte, Este y Oeste. Si lo que sale es un documento de oficina y no un pedido de la tienda, el servicio es la [mensajería corporativa](/servicios/mensajeria-corporativa). Si el pedido va a David, Chitré, Santiago, Las Tablas, Aguadulce o Penonomé, ya no es la misma ruta de la ciudad: esas ciudades están en [cobertura](/cobertura) y el traslado puede ir en panel o camión. No prometa al cliente de la tienda el mismo plazo de la ciudad. Zappy no publica ese plazo.
 
 ## Lo que el mensajero necesita en la orden
 

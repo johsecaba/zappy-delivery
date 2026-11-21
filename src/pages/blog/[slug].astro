@@ -21,6 +21,7 @@ const category = categories[post.data.category];
 const path = `/blog/${post.id}`;
 const published = post.data.pubDate.toISOString().slice(0, 10);
 
+const pageTitle = post.data.seoTitle ?? `${post.data.title} | Zappy Delivery`;
 const jsonLd = graph(
   organizationNode(),
   articleNode({
@@ -30,6 +31,7 @@ const jsonLd = graph(
     datePublished: published,
     dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10),
     image: post.data.image,
+    type: "BlogPosting",
   }),
   breadcrumbNode([
     { name: "Inicio", path: "/" },
@@ -40,7 +42,7 @@ const jsonLd = graph(
 ---
 
 <Base
-  title={`${post.data.title} | Zappy Delivery`}
+  title={pageTitle}
   description={post.data.description}
   ogType="article"
   image={post.data.image}
@@ -48,7 +50,7 @@ const jsonLd = graph(
   jsonLd={jsonLd}
 >
   <article>
-    <header class="band band-navy page-hero">
+    <header class="band band-white page-hero">
       <div class="wrap">
         <Breadcrumbs
           items={[
@@ -60,7 +62,7 @@ const jsonLd = graph(
         />
         <p class="eyebrow">{category.label}</p>
         <h1 class="h1">{post.data.title}</h1>
-        <p class="meta" style="color: white; margin-top: 14px;">
+        <p class="meta" style="margin-top: 14px;">
           {formatDate(post.data.pubDate)} · Zappy Delivery
         </p>
         <img

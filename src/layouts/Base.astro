@@ -2,13 +2,13 @@
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 import "@fontsource/inter/latin-700.css";
-import "@fontsource/inter/latin-800.css";
 import "../styles/global.css";
 import Seo from "../components/Seo.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import WhatsAppFloat from "../components/WhatsAppFloat.astro";
 import { site, whatsappHref } from "../config/site";
+import { isNoindexPath } from "../config/indexing.mjs";
 
 interface Props {
   title: string;
@@ -21,7 +21,10 @@ interface Props {
   showBanner?: boolean;
 }
 
-const { title, description, ogType, image, imageAlt, jsonLd, noindex, showBanner = true } = Astro.props;
+const props = Astro.props;
+const { title, description, ogType, image, imageAlt, jsonLd, showBanner = true } = props;
+const path = Astro.url.pathname;
+const noindex = Boolean(props.noindex) || isNoindexPath(path);
 ---
 
 <html lang={site.lang}>

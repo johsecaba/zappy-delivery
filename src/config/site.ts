@@ -70,11 +70,12 @@ export const site = {
    * Mediana de píxeles saturados del wordmark, del ala y de «DELIVERY».
    */
   colors: {
-    navy: "#21397A",
-    sky: "#008BCE",
-    orange: "#EB6935",
-    linen: "#F3F3F1",
-    ink: "#000000",
+    navy: "#0B1F4D",
+    primary: "#1E5EFF",
+    light: "#DCE8FF",
+    mist: "#F6F8FC",
+    orange: "#FF7A1A",
+    white: "#FFFFFF",
   },
 } as const;
 

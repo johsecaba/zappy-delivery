@@ -2,7 +2,7 @@
 title: "Mensajería corporativa en Panamá: trámites en la CSS, el Mitradel y cheques"
 description: "Qué diligencias cubre la mensajería corporativa de Zappy en la ciudad: documentos de ida y vuelta, cheques, pagos en la CSS y entrega al Mitradel."
 pubDate: 2026-11-03
-updatedDate: 2026-11-07
+updatedDate: 2026-11-21
 category: guias
 image: /blog/banners/mensajeria-corporativa-tramites-css-mitradel-cheques.png
 imageAlt: "Banner del artículo sobre mensajería corporativa, trámites en la CSS, el Mitradel y cheques: logotipo de Zappy Delivery y una ilustración geométrica de documentos, en azul marino, celeste y naranja."
@@ -19,7 +19,7 @@ El sitio describe estas tareas:
 - Pagos en la Caja de Seguro Social, certificación de cheques en los bancos y entrega de documentos al Mitradel.
 - Seguimiento de todo el proceso y conductores identificados.
 
-Si el bulto no cabe en la moto, el traslado pasa a [panel o camión](/servicios/traslados-panel-camion).
+Si el bulto no cabe en la moto, el traslado puede pasar a panel o camión. Ese caso se parece más a [Zappy Business](/servicios/zappy-business) que a la mensajería de documentos.
 
 ## Cheques y la cláusula de los términos
 
@@ -29,7 +29,7 @@ El cobro en efectivo es otra cosa: los conductores solo aceptan hasta 50 dólare
 
 ## Ciudad, no interior, y no es la cifra de las tarjetas
 
-Estas diligencias se mueven en la Ciudad de Panamá y sus afueras: Panamá Centro, Panamá Norte, Panamá Este y Panamá Oeste. El sitio no publica barrios ni un plazo para un trámite en la CSS o el Mitradel. El 97,91 % en menos de 96 horas, y 9 de cada 10 que califican el servicio de bueno o muy bueno, son cifras de la [entrega de tarjetas bancarias](/servicios/entrega-de-tarjetas-bancarias), no de la mensajería corporativa.
+Estas diligencias se mueven en la Ciudad de Panamá y sus afueras: Panamá Centro, Panamá Norte, Panamá Este y Panamá Oeste. El sitio no publica barrios ni un plazo para un trámite en la CSS o el Mitradel. La [mensajería bancaria](/servicios/mensajeria-bancaria) es otro servicio: documentos, cheques y valija. La entrega de tarjetas se consulta aparte.
 
 ## Cómo encargarlo
 

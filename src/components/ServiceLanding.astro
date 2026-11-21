@@ -1,0 +1,333 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import FaqList from "./FaqList.astro";
+import Illustration from "./Illustration.astro";
+import { otherLandings, landingFaqs, type Landing } from "../data/landings";
+import { getPublishedPosts } from "../lib/posts";
+import { ctaHref, type Cta } from "../lib/quote";
+import { absoluteUrl, site } from "../config/site";
+import { breadcrumbNode, faqNode, graph, organizationId, organizationNode } from "../lib/schema";
+
+interface Props {
+  landing: Landing;
+}
+
+const { landing } = Astro.props;
+const service = landing.service;
+const path = `/servicios/${service.slug}`;
+const faqs = landingFaqs(landing);
+const related = otherLandings(service.slug);
+const relatedPostIds: Record<string, string[]> = {
+  "mensajeria-bancaria": ["mensajeria-bancaria-panama"],
+  "entregas-comercios-ecommerce": [
+    "entregas-comercios-productos-delicados-panama",
+    "como-embalar-productos-fragiles-entregas",
+    "presentacion-mensajero-experiencia-cliente",
+  ],
+};
+const publishedPosts = await getPublishedPosts();
+const relatedPosts = (relatedPostIds[service.slug] ?? [])
+  .map((id) => publishedPosts.find((post) => post.id === id))
+  .filter((post) => post !== undefined);
+
+const crumbs = [
+  { name: "Inicio", path: "/" },
+  { name: "Servicios", path: "/servicios" },
+  { name: service.menuLabel },
+];
+
+function serviceNode() {
+  return {
+    "@type": "Service",
+    name: service.name,
+    serviceType: service.name,
+    description: service.description,
+    url: absoluteUrl(path),
+    provider: { "@id": organizationId },
+    areaServed: {
+      "@type": "City",
+      name: site.city,
+      containedInPlace: { "@type": "Country", name: site.country },
+    },
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: `https://wa.me/${site.whatsappE164}`,
+      servicePhone: `+${site.whatsappE164}`,
+    },
+  };
+}
+
+const jsonLd = graph(
+  organizationNode(),
+  serviceNode(),
+  faqNode(faqs, path),
+  breadcrumbNode([
+    { name: "Inicio", path: "/" },
+    { name: "Servicios", path: "/servicios" },
+    { name: service.menuLabel, path },
+  ]),
+);
+
+function pillClass(_cta: Cta): string {
+  return "btn btn-cta";
+}
+---
+
+<Base title={service.title} description={service.description} jsonLd={jsonLd}>
+  <article>
+    <header class="band band-white landing-hero-band">
+      <div class="wrap landing-hero">
+        <div>
+          <Breadcrumbs items={crumbs} />
+          <p class="eyebrow">{service.eyebrow}</p>
+          <h1 class="display">{service.h1}</h1>
+          <p class="lede">{landing.hero}</p>
+          <div class="cta-row">
+            <a class={pillClass(landing.primary)} href={ctaHref(landing.primary)}>{landing.primary.label}</a>
+            <a class={pillClass(landing.secondary)} href={ctaHref(landing.secondary)}>{landing.secondary.label}</a>
+          </div>
+        </div>
+        {
+          landing.heroImage && (
+            <Illustration
+              name={landing.heroImage.name}
+              alt={landing.heroImage.alt}
+              loading={landing.heroImage.loading ?? "eager"}
+              sizes="(min-width: 960px) 520px, 100vw"
+            />
+          )
+        }
+      </div>
+    </header>
+
+    {
+      landing.sections.map((section, index) => {
+        const band = index % 2 === 0 ? "band-mist" : "band-white";
+        if (section.type === "intro") {
+          return (
+            <section class:list={["band", "section", band]}>
+              <div class="wrap prose">
+                <h2>{section.heading}</h2>
+                {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "cards") {
+          return (
+            <section class:list={["band", "section", band]}>
+              <div class="wrap">
+                <div class="section-head">
+                  <h2 class="h2">{section.heading}</h2>
+                  {section.description && <p class="lede">{section.description}</p>}
+                </div>
+                <div class="card-grid cols-3">
+                  {section.cards.map((card) => (
+                    <article class="card card-white">
+                      <h3>{card.title}</h3>
+                      <p>{card.body}</p>
+                    </article>
+                  ))}
+                </div>
+                {section.note && <p class="note">{section.note}</p>}
+                {section.cta && (
+                  <div class="cta-row">
+                    <a class={pillClass(section.cta)} href={ctaHref(section.cta)}>{section.cta.label}</a>
+                  </div>
+                )}
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "industries") {
+          return (
+            <section class:list={["band", "section", band]}>
+              <div class="wrap">
+                <div class="section-head">
+                  <h2 class="h2">{section.heading}</h2>
+                  <p class="lede">{section.description}</p>
+                </div>
+                <div class="card-grid">
+                  {section.items.map((item) => (
+                    <article class="card card-white industry-card">
+                      {item.image && (
+                        <Illustration name={item.image.name} alt={item.image.alt} sizes="(min-width: 800px) 360px, 100vw" />
+                      )}
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                      <p class="examples-label">{item.examplesLabel}</p>
+                      <ul>
+                        {item.examples.map((example) => <li>{example}</li>)}
+                      </ul>
+                      {item.note && <p class="note">{item.note}</p>}
+                      <a class={item.cta.kind === "link" ? "text-link" : pillClass(item.cta)} href={ctaHref(item.cta)}>
+                        {item.cta.label}
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "points") {
+          return (
+            <section class:list={["band", "section", band]}>
+              <div class="wrap">
+                <div class="section-head">
+                  <h2 class="h2">{section.heading}</h2>
+                  {section.paragraphs?.map((paragraph) => <p class="lede">{paragraph}</p>)}
+                </div>
+                {section.images && section.images.length > 0 && (
+                  <div class="illu-row">
+                    {section.images.map((image) => (
+                      <Illustration name={image.name} alt={image.alt} sizes="(min-width: 900px) 360px, 100vw" />
+                    ))}
+                  </div>
+                )}
+                <div class="card-grid">
+                  {section.items.map((item) => (
+                    <article class="card card-white">
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </article>
+                  ))}
+                </div>
+                {section.cta && (
+                  <div class="cta-row">
+                    <a class={pillClass(section.cta)} href={ctaHref(section.cta)}>{section.cta.label}</a>
+                  </div>
+                )}
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "steps") {
+          return (
+            <section class:list={["band", "section", band]}>
+              <div class="wrap prose">
+                <h2>{section.heading}</h2>
+                <ol class="step-list">
+                  {section.steps.map((step) => (
+                    <li>
+                      <h3>{step.title}</h3>
+                      <p>{step.body}</p>
+                    </li>
+                  ))}
+                </ol>
+                {section.cta && (
+                  <p>
+                    <a class={pillClass(section.cta)} href={ctaHref(section.cta)}>{section.cta.label}</a>
+                  </p>
+                )}
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "types") {
+          return (
+            <section class:list={["band", "section", band]}>
+              <div class="wrap">
+                <div class="section-head">
+                  <h2 class="h2">{section.heading}</h2>
+                </div>
+                <div class="card-grid cols-3">
+                  {section.items.map((item) => (
+                    <article class="card card-white">
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </article>
+                  ))}
+                </div>
+                {section.note && <p class="note">{section.note}</p>}
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "callout") {
+          return (
+            <section class:list={["band", "section", band]}>
+              <div class="wrap callout">
+                <div>
+                  <h2 class="h2">{section.heading}</h2>
+                  {section.paragraphs.map((paragraph) => <p class="lede">{paragraph}</p>)}
+                  <div class="cta-row">
+                    <a class={pillClass(section.cta)} href={ctaHref(section.cta)}>{section.cta.label}</a>
+                  </div>
+                </div>
+                {section.image && (
+                  <Illustration name={section.image.name} alt={section.image.alt} sizes="(min-width: 900px) 420px, 100vw" />
+                )}
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "faq") {
+          return (
+            <section class:list={["band", "section", band]} id="faq" aria-labelledby="faq-titulo">
+              <div class="wrap">
+                <h2 class="h2" id="faq-titulo">{section.heading}</h2>
+                <div style="margin-top: 24px;">
+                  <FaqList items={section.items} />
+                </div>
+              </div>
+            </section>
+          );
+        }
+        if (section.type === "close") {
+          return (
+            <section class:list={["band", "section", "band-light", "landing-close"]}>
+              <div class="wrap">
+                <h2 class="h2">{section.heading}</h2>
+                {section.paragraphs.map((paragraph) => <p class="lede">{paragraph}</p>)}
+                <div class="cta-row">
+                  <a class={pillClass(section.primary)} href={ctaHref(section.primary)}>{section.primary.label}</a>
+                  <a class={pillClass(section.secondary)} href={ctaHref(section.secondary)}>{section.secondary.label}</a>
+                </div>
+              </div>
+            </section>
+          );
+        }
+        return null;
+      })
+    }
+
+    {
+      relatedPosts.length > 0 && (
+        <section class="band band-mist section" aria-labelledby="articulos-relacionados">
+          <div class="wrap">
+            <h2 class="h2" id="articulos-relacionados">Artículos relacionados</h2>
+            <ul class="related-list">
+              {relatedPosts.map((post) => (
+                <li>
+                  <a href={`/blog/${post.id}`}>
+                    <strong>{post.data.title}</strong>
+                    <span>{post.data.description}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )
+    }
+
+    <nav class="band band-white section" aria-label="Otros servicios de mensajería">
+      <div class="wrap">
+        <ul class="related-list">
+          {
+            related.map((item) => (
+              <li>
+                <a href={`/servicios/${item.service.slug}`}>
+                  <strong>{item.service.menuLabel}</strong>
+                  <span>{item.service.summary}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </nav>
+  </article>
+</Base>

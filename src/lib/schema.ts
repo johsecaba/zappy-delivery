@@ -2,6 +2,7 @@ import { site, absoluteUrl, siteSummary } from "../config/site";
 import { interiorCities } from "../data/coverage";
 import type { FaqItem } from "../data/faq";
 import { services, type Service } from "../data/services";
+import { isNoindexPath } from "../config/indexing.mjs";
 
 export const organizationId = `${site.url}/#organization`;
 const catalogId = `${site.url}/#offer-catalog`;
@@ -27,10 +28,6 @@ function areaServed(scope: "urban" | "national") {
   return [...cities.map((city) => cityNode(city)), countryNode()];
 }
 
-function scopeFor(slug: string): "urban" | "national" {
-  return slug === "traslados-panel-camion" ? "national" : "urban";
-}
-
 /** Lunes a sábado, 8:00 a.m. a 5:00 p.m. Confirmado para la mensajería corporativa. */
 const openingHoursSpecification = {
   "@type": "OpeningHoursSpecification",
@@ -39,23 +36,19 @@ const openingHoursSpecification = {
   closes: "17:00",
 };
 
+function indexedServices() {
+  return services.filter((service) => !isNoindexPath(`/servicios/${service.slug}`));
+}
+
 function serviceEntity(service: Service) {
-  const corporate = service.slug === "mensajeria-corporativa";
   return {
     "@type": "Service",
     name: service.name,
     serviceType: service.name,
-    ...(corporate ? { alternateName: "Mensajería empresarial" } : {}),
     description: service.description,
     url: absoluteUrl(`/servicios/${service.slug}`),
     provider: { "@id": organizationId },
-    areaServed: corporate ? cityNode(site.city) : areaServed(scopeFor(service.slug)),
-    ...(corporate
-      ? {
-          hoursAvailable: openingHoursSpecification,
-          openingHoursSpecification,
-        }
-      : {}),
+    areaServed: areaServed("urban"),
     availableChannel: {
       "@type": "ServiceChannel",
       serviceUrl: `https://wa.me/${site.whatsappE164}`,
@@ -111,9 +104,7 @@ export function organizationNode() {
       "@type": "OfferCatalog",
       "@id": catalogId,
       name: "Servicios de mensajería y última milla",
-      itemListElement: services
-        .filter((service) => service.slug !== "mensajeria-corporativa")
-        .map((service, index) => ({
+      itemListElement: indexedServices().map((service, index) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {
@@ -184,6 +175,7 @@ export function articleNode(input: {
   datePublished: string;
   dateModified?: string;
   image?: string;
+  type?: "Article" | "BlogPosting";
 }) {
   const image = input.image
     ? input.image.startsWith("http")
@@ -191,7 +183,7 @@ export function articleNode(input: {
       : absoluteUrl(input.image)
     : absoluteUrl("/og-zappy.jpg");
   return {
-    "@type": "Article",
+    "@type": input.type ?? "Article",
     headline: input.title,
     description: input.description,
     inLanguage: site.locale,

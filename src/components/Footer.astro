@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import logo from "../assets/brand/logo-zappy.png";
 import { site, whatsappHref } from "../config/site";
-import { services } from "../data/services";
+import { servicesInGroup } from "../data/services";
 
 const year = new Date().getFullYear();
 ---
@@ -29,9 +29,20 @@ const year = new Date().getFullYear();
     </div>
     <div>
       <h2>Servicios</h2>
+      <p class="footer-kicker">Mensajería</p>
       <ul>
         {
-          services.map((service) => (
+          servicesInGroup("mensajeria").map((service) => (
+            <li>
+              <a href={`/servicios/${service.slug}`}>{service.menuLabel}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="footer-kicker">Zappy Express y Business</p>
+      <ul>
+        {
+          servicesInGroup("productos").map((service) => (
             <li>
               <a href={`/servicios/${service.slug}`}>{service.menuLabel}</a>
             </li>
