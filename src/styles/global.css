@@ -1535,6 +1535,10 @@ select:focus {
   margin: 0;
 }
 
+.industry-card > .btn {
+  margin-top: auto;
+}
+
 .examples-label {
   font-size: var(--text-body-sm);
   font-weight: 500;
