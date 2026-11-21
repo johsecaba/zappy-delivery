@@ -31,7 +31,13 @@ const latestPosts = (await getPublishedPosts()).slice(0, 3);
 const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
 ---
 
-<Base title={title} description={description} jsonLd={jsonLd}>
+<Base
+  title={title}
+  description={description}
+  jsonLd={jsonLd}
+  image="/og/home.png"
+  imageAlt="Mensajería en moto para empresas en Panamá. Un mensajero recorre la ciudad frente al logotipo de Zappy Delivery."
+>
   <section class="band band-white hero">
     <div class="wrap hero-grid">
       <div>

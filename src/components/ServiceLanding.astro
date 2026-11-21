@@ -72,9 +72,31 @@ const jsonLd = graph(
 function pillClass(_cta: Cta): string {
   return "btn btn-cta";
 }
+
+const ogBySlug: Record<string, { image: string; alt: string }> = {
+  "mensajeria-corporativa": {
+    image: "/og/mensajeria-corporativa.png",
+    alt: "Mensajería corporativa en Panamá. Un mensajero entrega un sobre frente a un banco, junto al logotipo de Zappy Delivery.",
+  },
+  "mensajeria-bancaria": {
+    image: "/og/mensajeria-bancaria.png",
+    alt: "Mensajería bancaria en Panamá. Un mensajero entrega un sobre en un escritorio, junto al logotipo de Zappy Delivery.",
+  },
+  "entregas-comercios-ecommerce": {
+    image: "/og/entregas-comercios-ecommerce.png",
+    alt: "Entregas para comercios y e-commerce en Panamá. Un mensajero carga una caja frágil, junto al logotipo de Zappy Delivery.",
+  },
+};
+const og = ogBySlug[service.slug];
 ---
 
-<Base title={service.title} description={service.description} jsonLd={jsonLd}>
+<Base
+  title={service.title}
+  description={service.description}
+  jsonLd={jsonLd}
+  image={og?.image}
+  imageAlt={og?.alt}
+>
   <article>
     <header class="band band-white landing-hero-band">
       <div class="wrap landing-hero">
