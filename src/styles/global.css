@@ -477,8 +477,25 @@ ol {
 .hero-grid,
 .landing-hero {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 32px;
   align-items: center;
+}
+
+.hero-grid .illu,
+.landing-hero .illu {
+  width: 100%;
+  max-width: 640px;
+  margin: 0;
+  aspect-ratio: 1152 / 864;
+}
+
+.hero-grid .illu img,
+.landing-hero .illu img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1152 / 864;
+  object-fit: contain;
 }
 
 .hero .lede,

@@ -17,6 +17,8 @@ const names = {
   legal: "legal",
   "real-estate": "real-estate",
   insurance: "insurance",
+  "home-hero": "home-hero",
+  "corporativa-hero": "corporativa-hero",
 };
 
 const sourceDir = process.argv[2];

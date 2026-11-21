@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import FaqList from "../components/FaqList.astro";
+import Illustration from "../components/Illustration.astro";
 import { homeDescription, site, siteSummary, whatsappHref } from "../config/site";
 import { services } from "../data/services";
 import { homeFaqs } from "../data/faq";
@@ -50,6 +51,12 @@ const jsonLd = graph(organizationNode(), websiteNode(), faqNode(homeFaqs, "/"));
           <li>Ahorro por volumen</li>
         </ul>
       </div>
+      <Illustration
+        name="home-hero"
+        alt="Mensajero en moto recorre la ciudad con una caja de entrega, siguiendo una ruta entre documentos, paquetes y puntos de destino."
+        loading="eager"
+        sizes="(min-width: 960px) 520px, 100vw"
+      />
     </div>
   </section>
 

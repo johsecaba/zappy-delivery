@@ -3,7 +3,17 @@ import type { Cta } from "../lib/quote";
 import { getService, type Service } from "./services";
 
 export type LandingImage = {
-  name: "credit-cards" | "fragile" | "wine" | "art" | "medicine" | "legal" | "real-estate" | "insurance";
+  name:
+    | "credit-cards"
+    | "fragile"
+    | "wine"
+    | "art"
+    | "medicine"
+    | "legal"
+    | "real-estate"
+    | "insurance"
+    | "home-hero"
+    | "corporativa-hero";
   alt: string;
   loading?: "eager" | "lazy";
 };
@@ -86,6 +96,11 @@ export const landings: Landing[] = [
   {
     service: corporate,
     hero: corporate.intro,
+    heroImage: {
+      name: "corporativa-hero",
+      alt: "Mensajero entrega un sobre a un ejecutivo frente a la puerta de un banco, junto a una moto con caja de reparto.",
+      loading: "eager",
+    },
     primary: quote(
       "Solicitar propuesta corporativa",
       corporate.name,
@@ -386,6 +401,11 @@ export const landings: Landing[] = [
   {
     service: banking,
     hero: banking.intro,
+    heroImage: {
+      name: "credit-cards",
+      alt: "Mensajero entrega un sobre a un ejecutivo en un escritorio, con una tarjeta bancaria y un escudo de verificación al fondo.",
+      loading: "eager",
+    },
     primary: quote(
       "Solicitar propuesta bancaria",
       banking.name,
@@ -552,6 +572,11 @@ export const landings: Landing[] = [
   {
     service: commerce,
     hero: commerce.intro,
+    heroImage: {
+      name: "fragile",
+      alt: "Mensajero carga una caja marcada como frágil, con burbujas visibles, junto a una moto.",
+      loading: "eager",
+    },
     primary: quote(
       "Cotizar entregas para mi comercio",
       commerce.name,

@@ -1,6 +1,16 @@
 ---
 interface Props {
-  name: "credit-cards" | "fragile" | "wine" | "art" | "medicine" | "legal" | "real-estate" | "insurance";
+  name:
+    | "credit-cards"
+    | "fragile"
+    | "wine"
+    | "art"
+    | "medicine"
+    | "legal"
+    | "real-estate"
+    | "insurance"
+    | "home-hero"
+    | "corporativa-hero";
   alt: string;
   loading?: "eager" | "lazy";
   sizes?: string;
@@ -30,6 +40,7 @@ const srcset = (ext: "avif" | "webp") => widths.map((width) => `${src(width, ext
       width="1152"
       height="864"
       loading={loading}
+      fetchpriority={loading === "eager" ? "high" : "low"}
       decoding="async"
     />
   </picture>
