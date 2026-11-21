@@ -183,7 +183,7 @@ const og = ogBySlug[service.slug];
                         {item.examples.map((example) => <li>{example}</li>)}
                       </ul>
                       {item.note && <p class="note">{item.note}</p>}
-                      <a class={item.cta.kind === "link" ? "text-link" : pillClass(item.cta)} href={ctaHref(item.cta)}>
+                      <a class={pillClass(item.cta)} href={ctaHref(item.cta)}>
                         {item.cta.label}
                       </a>
                     </article>
@@ -256,7 +256,10 @@ const og = ogBySlug[service.slug];
                 </div>
                 <div class="card-grid cols-3">
                   {section.items.map((item) => (
-                    <article class="card card-white">
+                    <article class:list={["card", "card-white", item.image && "industry-card"]}>
+                      {item.image && (
+                        <Illustration name={item.image.name} alt={item.image.alt} sizes="(min-width: 800px) 360px, 100vw" />
+                      )}
                       <h3>{item.title}</h3>
                       <p>{item.body}</p>
                     </article>
