@@ -2,14 +2,6 @@ import { readFileSync } from "node:fs";
 import { categories } from "../data/blog";
 import { cityZones, interiorCities } from "../data/coverage";
 import { faqs } from "../data/faq";
-import {
-  corporateCta,
-  corporateFaqs,
-  corporateIntroBody,
-  corporateIntroCta,
-  corporatePath,
-  corporateSections,
-} from "../data/mensajeria-corporativa";
 import { services } from "../data/services";
 import { absoluteUrl, homeDescription, site, siteSummary } from "../config/site";
 import { getPublishedPosts, type BlogPost } from "./posts";
@@ -35,34 +27,9 @@ function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
-function corporateMarkdown(): string[] {
-  const quote = services.find((service) => service.slug === "mensajeria-corporativa");
-  const quoteUrl = `https://wa.me/${site.whatsappE164}?text=${encodeURIComponent(quote?.whatsappMessage ?? site.whatsappMessage)}`;
-  const lines: string[] = [`${corporateIntroBody} [${corporateIntroCta}](${quoteUrl}).`, ""];
-  for (const section of corporateSections) {
-    lines.push(`## ${section.heading}`, "");
-    for (const paragraph of section.paragraphs ?? []) lines.push(absolutize(paragraph), "");
-    if (section.bullets?.length) {
-      for (const bullet of section.bullets) lines.push(`- ${absolutize(bullet)}`);
-      lines.push("");
-    }
-    if (section.steps?.length) {
-      section.steps.forEach((step, index) => {
-        lines.push(`${index + 1}. ${absolutize(step)}`);
-      });
-      lines.push("");
-    }
-    for (const group of section.groups ?? []) {
-      lines.push(`### ${group.heading}`, "");
-      for (const paragraph of group.paragraphs) lines.push(absolutize(paragraph), "");
-    }
-  }
-  lines.push("## Preguntas frecuentes", "");
-  for (const item of corporateFaqs) {
-    lines.push(`### ${item.question}`, "", item.answer, "");
-  }
-  lines.push(corporateCta, "");
-  return lines;
+/** La página nueva no se anuncia a buscadores ni a asistentes. El resto de servicios sí. */
+function listedServices() {
+  return services.filter((service) => service.slug !== "mensajeria-corporativa");
 }
 
 /**
@@ -108,7 +75,7 @@ export async function renderLlmsTxt(): Promise<string> {
     "",
     "## Servicios",
     "",
-    ...services.map((service) => link(service.name, `/servicios/${service.slug}`, service.summary)),
+    ...listedServices().map((service) => link(service.name, `/servicios/${service.slug}`, service.summary)),
     link(
       "ZappyPoints",
       "/zappypoints",
@@ -210,11 +177,7 @@ export async function renderLlmsFullTxt(): Promise<string> {
     "",
   ];
 
-  for (const service of services) {
-    if (service.slug === "mensajeria-corporativa") {
-      lines.push(`### ${service.h1}`, "", absoluteUrl(corporatePath), "", ...corporateMarkdown());
-      continue;
-    }
+  for (const service of listedServices()) {
     lines.push(
       `### ${service.h1}`,
       "",

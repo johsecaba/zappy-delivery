@@ -111,16 +111,18 @@ export function organizationNode() {
       "@type": "OfferCatalog",
       "@id": catalogId,
       name: "Servicios de mensajería y última milla",
-      itemListElement: services.map((service, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        item: {
-          "@type": "Offer",
-          name: service.name,
-          url: absoluteUrl(`/servicios/${service.slug}`),
-          itemOffered: serviceEntity(service),
-        },
-      })),
+      itemListElement: services
+        .filter((service) => service.slug !== "mensajeria-corporativa")
+        .map((service, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Offer",
+            name: service.name,
+            url: absoluteUrl(`/servicios/${service.slug}`),
+            itemOffered: serviceEntity(service),
+          },
+        })),
     },
   };
 }
